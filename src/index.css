@@ -1,0 +1,335 @@
+/* ==========================================================================
+   MEDICAL APP STYLESHEET — desktop/laptop layout
+   Built by: [Your name] — UI Design
+   How to use: link this file in the HTML with:
+   <link rel="stylesheet" href="styles.css">
+   ========================================================================== */
+
+:root {
+  /* Core palette — six colors, each with a purpose, muted rather than neon */
+  --color-primary: #3d4fc4;        /* indigo — main brand color, nav, primary buttons, selected state */
+  --color-primary-dark: #323f9e;
+  --color-primary-light: #eaecfa;
+
+  --color-teal: #147d72;           /* practice / learning content */
+  --color-teal-light: #e3f2ef;
+
+  --color-coral: #c85a3e;          /* quiz accents / energy */
+  --color-coral-light: #f7e9e3;
+
+  --color-amber: #b8791a;          /* streaks, warnings, attention */
+  --color-amber-light: #f7edd9;
+
+  --color-violet: #7c5cbf;         /* fifth accent — extra subject color */
+  --color-violet-light: #efeaf8;
+
+  --color-rose: #b5486e;           /* sixth accent — extra subject color */
+  --color-rose-light: #f8e9ee;
+
+  --color-success: #15966a;
+  --color-success-light: #e5f7f0;
+  --color-danger: #e0433f;
+  --color-danger-light: #fdecec;
+
+  --color-text: #16181d;
+  --color-text-secondary: #6b7078;
+  --color-border: #e5e7eb;
+  --color-background: #f7f7fb;
+  --color-surface: #ffffff;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 18px;
+
+  --font-sm: 13px;
+  --font-base: 15px;
+  --font-lg: 18px;
+  --font-xl: 30px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 8px 20px rgba(16, 24, 40, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.55;
+  font-size: var(--font-base);
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+}
+
+h1 {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+h2 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  margin-bottom: var(--space-md);
+}
+
+p { color: var(--color-text); }
+
+.text-secondary {
+  color: var(--color-text-secondary);
+  font-size: var(--font-sm);
+}
+
+/* --------------------------------------------------------------------------
+   LAYOUT — wide desktop page, not a phone-width column
+   -------------------------------------------------------------------------- */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-lg);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Color-tinted card variants — use these to color-code sections */
+.card-primary { background: var(--color-primary-light); border-color: transparent; }
+.card-teal    { background: var(--color-teal-light);    border-color: transparent; }
+.card-coral   { background: var(--color-coral-light);   border-color: transparent; }
+.card-amber   { background: var(--color-amber-light);   border-color: transparent; }
+.card-violet  { background: var(--color-violet-light);  border-color: transparent; }
+.card-rose    { background: var(--color-rose-light);    border-color: transparent; }
+
+/* --------------------------------------------------------------------------
+   HERO / HEADER BANNER
+   -------------------------------------------------------------------------- */
+.hero {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #5c4aa8 100%);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.hero h1 { color: #ffffff; }
+.hero p { color: rgba(255,255,255,0.85); }
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  font-size: var(--font-base);
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+}
+
+.btn:active { transform: scale(0.98); }
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary { background: var(--color-primary); color: #fff; box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--color-primary-dark); box-shadow: var(--shadow-md); }
+
+.btn-teal   { background: var(--color-teal);   color: #fff; }
+.btn-teal:hover   { background: var(--color-teal-dark, #0f5f57); box-shadow: var(--shadow-md); }
+
+.btn-coral  { background: var(--color-coral);  color: #fff; }
+.btn-coral:hover  { background: var(--color-coral-dark, #a8492f); box-shadow: var(--shadow-md); }
+
+.btn-amber  { background: var(--color-amber);  color: #fff; }
+.btn-amber:hover  { background: var(--color-amber-dark, #96620f); box-shadow: var(--shadow-md); }
+
+.btn-violet { background: var(--color-violet); color: #fff; }
+.btn-violet:hover { background: var(--color-violet-dark, #6849a3); box-shadow: var(--shadow-md); }
+
+.btn-rose   { background: var(--color-rose);   color: #fff; }
+.btn-rose:hover   { background: var(--color-rose-dark, #983a5c); box-shadow: var(--shadow-md); }
+
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+.btn-secondary:hover { background: var(--color-background); }
+
+/* --------------------------------------------------------------------------
+   FORM INPUTS
+   -------------------------------------------------------------------------- */
+.input {
+  display: block;
+  width: 100%;
+  padding: 13px var(--space-md);
+  font-size: var(--font-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  margin-bottom: var(--space-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.input::placeholder { color: var(--color-text-secondary); }
+
+/* --------------------------------------------------------------------------
+   QUIZ / PRACTICE
+   -------------------------------------------------------------------------- */
+.quiz-progress-label {
+  font-size: var(--font-sm);
+  color: var(--color-coral);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.quiz-question {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-sm);
+}
+
+.answer-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px var(--space-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-size: var(--font-base);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.answer-option:hover { border-color: var(--color-primary); background: var(--color-primary-light); }
+.answer-option.selected { border-color: var(--color-primary); background: var(--color-primary-light); }
+.answer-option.correct {
+  border-color: var(--color-success); background: var(--color-success-light);
+  color: var(--color-success); font-weight: 600;
+}
+.answer-option.incorrect {
+  border-color: var(--color-danger); background: var(--color-danger-light);
+  color: var(--color-danger); font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   PROGRESS / STATS
+   -------------------------------------------------------------------------- */
+.stat-number {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: var(--space-sm);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+  /* set width + background color in the HTML, e.g. style="width:80%; background:var(--color-teal)" */
+}
+
+/* --------------------------------------------------------------------------
+   TOP NAVIGATION — full-width desktop bar
+   -------------------------------------------------------------------------- */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-xl);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-brand {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.nav-links { display: flex; gap: var(--space-sm); }
+
+.nav-item {
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-item:hover { background: var(--color-background); }
+.nav-item.active { color: var(--color-primary); background: var(--color-primary-light); }
+
+/* Badges — small colored labels, e.g. topic tags */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+.badge-primary { background: var(--color-primary-light); color: var(--color-primary); }
+.badge-teal    { background: var(--color-teal-light);    color: var(--color-teal); }
+.badge-coral   { background: var(--color-coral-light);   color: var(--color-coral); }
+.badge-amber   { background: var(--color-amber-light);   color: var(--color-amber); }
+.badge-violet  { background: var(--color-violet-light);  color: var(--color-violet); }
+.badge-rose    { background: var(--color-rose-light);    color: var(--color-rose); }
