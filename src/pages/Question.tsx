@@ -48,6 +48,15 @@ function Question() {
 
   const q = questions[currentIndex];
   const options = q.options ? q.options.split(",").map((s: string) => s.trim()) : [];
+  const wrongExplanations: Record<string, string> = {};
+  if (q.wrong_explanations) {
+    q.wrong_explanations.split(";").forEach((pair: string) => {
+      const [option, explanation] = pair.split(":");
+      if (option && explanation) {
+        wrongExplanations[option.trim()] = explanation.trim();
+      }
+    });
+  }
 
   function getOptionClass(option: string) {
     if (!selected) return "answer-option";
@@ -87,7 +96,21 @@ function Question() {
         </div>
 
         {selected && (
-          <p className="text-secondary" style={{ marginTop: "12px" }}>{q.explanation}</p>
+          <div style={{ marginTop: "12px" }}>
+            {selected === q.answer ? (
+              <p className="text-secondary">{q.explanation}</p>
+            ) : (
+              <>
+                <p className="text-secondary">
+                  <strong>Why "{selected}" is wrong:</strong>{" "}
+                  {wrongExplanations[selected] || "This isn't the correct answer for this question."}
+                </p>
+                <p className="text-secondary" style={{ marginTop: "8px" }}>
+                  <strong>Why "{q.answer}" is correct:</strong> {q.explanation}
+                </p>
+              </>
+            )}
+          </div>
         )}
 
         {selected && currentIndex < questions.length - 1 && (
