@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Button from "./Button";
-import Card from "./Card";
+import Button from "./componets/Button";
+import Card from "./componets/Card";
 
 function App() {
   const [count, setCount] = useState(0);

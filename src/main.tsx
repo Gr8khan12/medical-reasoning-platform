@@ -2,12 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
-import Home from './Home.tsx'
-import SystemPage from './SystemPage.tsx'
-import DiseasePage from './DiseasePage.tsx'
-import Question from './Question.tsx'
-import Concepts from './Concepts.tsx'
-import ConceptDetail from './ConceptDetail.tsx'
+import Home from './pages/Home.tsx'
+import SystemPage from './pages/SystemPage.tsx'
+import DiseasePage from './pages/DiseasePage.tsx'
+import Question from './pages/Question.tsx'
+import Concepts from './pages/Concepts.tsx'
+import ConceptDetail from './pages/ConceptDetail.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

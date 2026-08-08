@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "./supabaseClient";
+import { supabase } from "../lib/supabaseClient";
 
 function Concepts() {
   const [concepts, setConcepts] = useState<any[]>([]);
