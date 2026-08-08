@@ -113,10 +113,29 @@ function Question() {
           </div>
         )}
 
-        {selected && currentIndex < questions.length - 1 && (
-          <button className="btn btn-primary" style={{ marginTop: "16px" }} onClick={nextQuestion}>
-            Next Question
-          </button>
+        {selected && (
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "16px" }}>
+            {currentIndex < questions.length - 1 && (
+              <button className="btn btn-primary" onClick={nextQuestion}>
+                Continue
+              </button>
+            )}
+
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                setSelected(null);
+              }}
+            >
+              Retry This Question
+            </button>
+
+            {concept && (
+              <Link to={"/concepts/" + concept} className="btn btn-teal">
+                Review Concept
+              </Link>
+            )}
+          </div>
         )}
       </div>
 
