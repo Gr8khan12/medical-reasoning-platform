@@ -1,10 +1,28 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient";
 
 function DiseasePage() {
   const { systemName, diseaseName } = useParams();
+  const [color, setColor] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchColor() {
+      const { data } = await supabase
+        .from("Systems")
+        .select("color")
+        .eq("name", systemName)
+        .maybeSingle();
+
+      if (data?.color) {
+        setColor(data.color);
+      }
+    }
+    fetchColor();
+  }, [systemName]);
 
   return (
-    <div className="page">
+    <div className="page" style={color ? { background: `var(--color-${color}-light)` } : undefined}>
       <div className="hero">
         <span className="badge badge-primary" style={{ background: "rgba(255,255,255,0.2)", color: "#fff" }}>
           {systemName}

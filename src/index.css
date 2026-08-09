@@ -26,6 +26,21 @@
   --color-rose: #b5486e;           /* sixth accent — extra subject color */
   --color-rose-light: #f8e9ee;
 
+  --color-sky: #2b7fb8;
+  --color-sky-light: #e5f1f8;
+
+  --color-olive: #6b7f1f;
+  --color-olive-light: #eef2e0;
+
+  --color-slate: #4a5568;
+  --color-slate-light: #e9ecf0;
+
+  --color-crimson: #a3253f;
+  --color-crimson-light: #f8e5e9;
+
+  --color-gold: #a3821f;
+  --color-gold-light: #f7f0dd;
+
   --color-success: #15966a;
   --color-success-light: #e5f7f0;
   --color-danger: #e0433f;
@@ -117,18 +132,31 @@ p { color: var(--color-text); }
   transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
+.card-header-band {
+  margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-md) calc(-1 * var(--space-lg));
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  color: #fff;
+}
+
+.card-header-band h2 { color: #fff; margin: 0; }
+
 .card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 
 /* Color-tinted card variants — use these to color-code sections */
-.card-primary { background: var(--color-primary-light); border-color: transparent; }
-.card-teal    { background: var(--color-teal-light);    border-color: transparent; }
-.card-coral   { background: var(--color-coral-light);   border-color: transparent; }
-.card-amber   { background: var(--color-amber-light);   border-color: transparent; }
-.card-violet  { background: var(--color-violet-light);  border-color: transparent; }
-.card-rose    { background: var(--color-rose-light);    border-color: transparent; }
+.card-teal    { background: var(--color-teal-light);    border-color: transparent; border-left-color: var(--color-teal); }
+.card-coral   { background: var(--color-coral-light);   border-color: transparent; border-left-color: var(--color-coral); }
+.card-amber   { background: var(--color-amber-light);   border-color: transparent; border-left-color: var(--color-amber); }
+.card-violet  { background: var(--color-violet-light);  border-color: transparent; border-left-color: var(--color-violet); }
+.card-rose    { background: var(--color-rose-light);    border-color: transparent; border-left-color: var(--color-rose); }
+.card-sky     { background: var(--color-sky-light);     border-color: transparent; border-left-color: var(--color-sky); }
+.card-olive   { background: var(--color-olive-light);   border-color: transparent; border-left-color: var(--color-olive); }
+.card-slate   { background: var(--color-slate-light);   border-color: transparent; border-left-color: var(--color-slate); }
+.card-crimson { background: var(--color-crimson-light); border-color: transparent; border-left-color: var(--color-crimson); }
+.card-gold    { background: var(--color-gold-light);    border-color: transparent; border-left-color: var(--color-gold); }
 
 /* --------------------------------------------------------------------------
    HERO / HEADER BANNER
@@ -179,6 +207,21 @@ p { color: var(--color-text); }
 
 .btn-rose   { background: var(--color-rose);   color: #fff; }
 .btn-rose:hover   { background: var(--color-rose-dark, #983a5c); box-shadow: var(--shadow-md); }
+
+.btn-sky      { background: var(--color-sky);     color: #fff; }
+.btn-sky:hover      { background: #23698f; box-shadow: var(--shadow-md); }
+
+.btn-olive    { background: var(--color-olive);   color: #fff; }
+.btn-olive:hover    { background: #57671a; box-shadow: var(--shadow-md); }
+
+.btn-slate    { background: var(--color-slate);   color: #fff; }
+.btn-slate:hover    { background: #3a4457; box-shadow: var(--shadow-md); }
+
+.btn-crimson  { background: var(--color-crimson); color: #fff; }
+.btn-crimson:hover  { background: #841f34; box-shadow: var(--shadow-md); }
+
+.btn-gold     { background: var(--color-gold);    color: #fff; }
+.btn-gold:hover     { background: #8a6d1a; box-shadow: var(--shadow-md); }
 
 .btn-secondary {
   background: var(--color-surface);
@@ -333,3 +376,8 @@ p { color: var(--color-text); }
 .badge-amber   { background: var(--color-amber-light);   color: var(--color-amber); }
 .badge-violet  { background: var(--color-violet-light);  color: var(--color-violet); }
 .badge-rose    { background: var(--color-rose-light);    color: var(--color-rose); }
+.badge-sky     { background: var(--color-sky-light);     color: var(--color-sky); }
+.badge-olive   { background: var(--color-olive-light);   color: var(--color-olive); }
+.badge-slate   { background: var(--color-slate-light);   color: var(--color-slate); }
+.badge-crimson { background: var(--color-crimson-light); color: var(--color-crimson); }
+.badge-gold    { background: var(--color-gold-light);    color: var(--color-gold); }

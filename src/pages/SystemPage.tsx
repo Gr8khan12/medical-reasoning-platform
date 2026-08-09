@@ -5,21 +5,26 @@ import { supabase } from "../lib/supabaseClient";
 function SystemPage() {
   const { systemName } = useParams();
   const [diseases, setDiseases] = useState<any[]>([]);
+  const [color, setColor] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchDiseases() {
+    async function fetchData() {
       try {
-        const { data, error } = await supabase
-          .from("Diseases")
-          .select("*")
-          .eq("system", systemName);
+        const [systemResult, diseaseResult] = await Promise.all([
+          supabase.from("Systems").select("*").eq("name", systemName).maybeSingle(),
+          supabase.from("Diseases").select("*").eq("system", systemName),
+        ]);
 
-        if (error) {
-          setErrorMsg(error.message);
+        if (systemResult.data?.color) {
+          setColor(systemResult.data.color);
+        }
+
+        if (diseaseResult.error) {
+          setErrorMsg(diseaseResult.error.message);
         } else {
-          setDiseases(data ?? []);
+          setDiseases(diseaseResult.data ?? []);
         }
       } catch (err: any) {
         setErrorMsg("Caught exception: " + err.message);
@@ -27,14 +32,14 @@ function SystemPage() {
         setLoading(false);
       }
     }
-    fetchDiseases();
+    fetchData();
   }, [systemName]);
 
   if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
   if (loading) return <p className="page">Loading diseases...</p>;
 
   return (
-    <div className="page">
+    <div className="page" style={color ? { background: `var(--color-${color}-light)` } : undefined}>
       <div className="hero">
         <span className="badge badge-primary" style={{ background: "rgba(255,255,255,0.2)", color: "#fff" }}>
           Body System
@@ -49,8 +54,18 @@ function SystemPage() {
         <>
           <div className="grid">
             {diseases.map((d) => (
-              <Link key={d.id} to={"/" + systemName + "/" + d.name} className="card card-primary">
-                <h2>{d.name}</h2>
+              <Link
+                key={d.id}
+                to={"/" + systemName + "/" + d.name}
+                className="card"
+                style={{ textDecoration: "none" }}
+              >
+                <div
+                   className="card-header-band"
+                  style={{ background: d.color ? `var(--color-${d.color})` : "var(--color-primary)" }}
+                >
+                  <h2>{d.name}</h2>
+                </div>
                 <p className="text-secondary">Tap to explore concepts and questions</p>
               </Link>
             ))}
@@ -58,7 +73,7 @@ function SystemPage() {
 
           <Link
             to={"/" + systemName + "/" + diseases[0].name + "/question?system=" + systemName}
-            className="btn btn-primary"
+            className={"btn " + (color ? "btn-" + color : "btn-primary")}
             style={{ marginTop: "16px", display: "inline-block" }}
           >
             Test Yourself on All of {systemName}
