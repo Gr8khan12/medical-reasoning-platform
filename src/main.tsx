@@ -23,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/:systemName/:diseaseName/question" element={<Question />} />
         <Route path="/concepts" element={<Concepts />} />
         <Route path="/concepts/:name" element={<ConceptDetail />} />
+        <Route path="/question" element={<Question />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

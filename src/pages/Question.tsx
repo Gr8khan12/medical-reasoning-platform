@@ -5,6 +5,8 @@ import { supabase } from "../lib/supabaseClient";
 function Question() {
   const [searchParams] = useSearchParams();
   const concept = searchParams.get("concept");
+  const disease = searchParams.get("disease");
+  const system = searchParams.get("system");
 
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,10 +17,36 @@ function Question() {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        let query = supabase.from("Questions").select("*");
+        let conceptNames: string[] | null = null;
+
         if (concept) {
-          query = query.eq("concept", concept);
+          conceptNames = [concept];
+        } else if (disease) {
+          const { data: conceptRows } = await supabase
+            .from("Concepts")
+            .select("name")
+            .eq("disease", disease);
+          conceptNames = (conceptRows ?? []).map((c) => c.name);
+        } else if (system) {
+          const { data: diseaseRows } = await supabase
+            .from("Diseases")
+            .select("name")
+            .eq("system", system);
+          const diseaseNames = (diseaseRows ?? []).map((d) => d.name);
+
+          const { data: conceptRows } = await supabase
+            .from("Concepts")
+            .select("name")
+            .in("disease", diseaseNames);
+          conceptNames = (conceptRows ?? []).map((c) => c.name);
         }
+
+        let query = supabase.from("Questions").select("*");
+        if (conceptNames) {
+          query = query.in("concept", conceptNames);
+        }
+        // if conceptNames is null (no concept/disease/system param), fetch ALL questions
+
         const { data, error } = await query;
 
         if (error) {
@@ -33,7 +61,7 @@ function Question() {
       }
     }
     fetchQuestions();
-  }, [concept]);
+  }, [concept, disease, system]);
 
   if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
   if (loading) return <p className="page">Loading questions...</p>;
@@ -98,7 +126,10 @@ function Question() {
 
   return (
     <div className="page">
-      <h1>Questions{concept ? ": " + concept : ""}</h1>
+      <h1>
+        Questions
+        {concept ? ": " + concept : disease ? ": " + disease : system ? ": " + system : ": All Topics"}
+      </h1>
 
       <div className="card">
         <p className="quiz-progress-label">

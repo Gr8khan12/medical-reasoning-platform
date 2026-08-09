@@ -46,14 +46,24 @@ function SystemPage() {
       {diseases.length === 0 ? (
         <p className="text-secondary">No diseases found for {systemName}.</p>
       ) : (
-        <div className="grid">
-          {diseases.map((d) => (
-            <Link key={d.id} to={"/" + systemName + "/" + d.name} className="card card-primary">
-              <h2>{d.name}</h2>
-              <p className="text-secondary">Tap to explore concepts and questions</p>
-            </Link>
-          ))}
-        </div>
+        <>
+          <div className="grid">
+            {diseases.map((d) => (
+              <Link key={d.id} to={"/" + systemName + "/" + d.name} className="card card-primary">
+                <h2>{d.name}</h2>
+                <p className="text-secondary">Tap to explore concepts and questions</p>
+              </Link>
+            ))}
+          </div>
+
+          <Link
+            to={"/" + systemName + "/" + diseases[0].name + "/question?system=" + systemName}
+            className="btn btn-primary"
+            style={{ marginTop: "16px", display: "inline-block" }}
+          >
+            Test Yourself on All of {systemName}
+          </Link>
+        </>
       )}
     </div>
   );

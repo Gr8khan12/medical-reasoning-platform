@@ -19,7 +19,7 @@ function DiseasePage() {
           <p className="text-secondary">Browse the topics and see how they connect</p>
         </Link>
 
-        <Link to={"/" + systemName + "/" + diseaseName + "/question"} className="card card-coral">
+        <Link to={"/" + systemName + "/" + diseaseName + "/question?disease=" + diseaseName} className="card card-coral">
           <h2>Start Question</h2>
           <p className="text-secondary">Test your knowledge with a quick question</p>
         </Link>
