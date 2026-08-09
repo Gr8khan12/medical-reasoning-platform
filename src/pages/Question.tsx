@@ -72,6 +72,30 @@ function Question() {
     }
   }
 
+  async function recordAnswer(isCorrect: boolean) {
+  if (!concept) return;
+
+  const { data: existing } = await supabase
+    .from("Progress")
+    .select("*")
+    .eq("concept_name", concept)
+    .maybeSingle();
+
+  const questionsAnswered = (existing?.questions_answered ?? 0) + 1;
+  const correctCount = (existing?.correct_count ?? 0) + (isCorrect ? 1 : 0);
+  const incorrectCount = (existing?.incorrect_count ?? 0) + (isCorrect ? 0 : 1);
+
+  await supabase.from("Progress").upsert(
+    {
+      concept_name: concept,
+      questions_answered: questionsAnswered,
+      correct_count: correctCount,
+      incorrect_count: incorrectCount,
+    },
+    { onConflict: "concept_name" }
+  );
+}
+
   return (
     <div className="page">
       <h1>Questions{concept ? ": " + concept : ""}</h1>
@@ -87,7 +111,10 @@ function Question() {
             <button
               key={opt}
               className={getOptionClass(opt)}
-              onClick={() => setSelected(opt)}
+              onClick={() => {
+                setSelected(opt);
+                recordAnswer(opt === q.answer);
+              }}
               disabled={selected !== null}
             >
               {opt}

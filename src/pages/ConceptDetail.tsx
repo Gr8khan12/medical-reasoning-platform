@@ -26,6 +26,16 @@ function ConceptDetail() {
         }
 
         setConcept(data);
+        
+        const { data: progressData } = await supabase
+          .from("Progress")
+          .select("bookmarked")
+          .eq("concept_name", name)
+          .maybeSingle();
+
+        if (progressData?.bookmarked) {
+          setBookmarked(true);
+        }
 
         // Reverse lookup: find children (rows whose parent_concept is this concept's name)
         const { data: childData } = await supabase
@@ -53,6 +63,18 @@ function ConceptDetail() {
     } else {
       setStatusMsg("Marked as: " + status);
     }
+  }
+
+  const [bookmarked, setBookmarked] = useState(false);
+
+  async function toggleBookmark() {
+    const newValue = !bookmarked;
+    setBookmarked(newValue);
+
+    await supabase.from("Progress").upsert(
+      { concept_name: name, bookmarked: newValue },
+      { onConflict: "concept_name" }
+    );
   }
 
   if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
@@ -93,6 +115,9 @@ function ConceptDetail() {
           </button>
           <button className="btn btn-amber" onClick={() => markProgress("needs_review")}>
             Mark as Needs Review
+          </button>
+          <button className={bookmarked ? "btn btn-violet" : "btn btn-secondary"} onClick={toggleBookmark}>
+            {bookmarked ? "★ Bookmarked" : "☆ Bookmark"}
           </button>
         </div>
         {statusMsg && <p className="text-secondary" style={{ marginTop: "12px" }}>{statusMsg}</p>}
