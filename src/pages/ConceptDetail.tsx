@@ -6,9 +6,11 @@ function ConceptDetail() {
   const { name } = useParams();
   const [concept, setConcept] = useState<any>(null);
   const [children, setChildren] = useState<any[]>([]);
+  const [systemName, setSystemName] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
+  const [bookmarked, setBookmarked] = useState(false);
 
   useEffect(() => {
     async function fetchConcept() {
@@ -26,7 +28,29 @@ function ConceptDetail() {
         }
 
         setConcept(data);
-        
+
+        // Reverse lookup: find children (rows whose parent_concept is this concept's name)
+        const { data: childData } = await supabase
+          .from("Concepts")
+          .select("*")
+          .eq("parent_concept", name);
+
+        setChildren(childData ?? []);
+
+        // Look up the system this concept's disease belongs to (for the quiz link)
+        if (data.disease) {
+          const { data: diseaseData } = await supabase
+            .from("Diseases")
+            .select("system")
+            .eq("name", data.disease)
+            .maybeSingle();
+
+          if (diseaseData?.system) {
+            setSystemName(diseaseData.system);
+          }
+        }
+
+        // Load existing bookmark state
         const { data: progressData } = await supabase
           .from("Progress")
           .select("bookmarked")
@@ -36,14 +60,6 @@ function ConceptDetail() {
         if (progressData?.bookmarked) {
           setBookmarked(true);
         }
-
-        // Reverse lookup: find children (rows whose parent_concept is this concept's name)
-        const { data: childData } = await supabase
-          .from("Concepts")
-          .select("*")
-          .eq("parent_concept", name);
-
-        setChildren(childData ?? []);
       } catch (err: any) {
         setErrorMsg("Caught exception: " + err.message);
       } finally {
@@ -65,16 +81,18 @@ function ConceptDetail() {
     }
   }
 
-  const [bookmarked, setBookmarked] = useState(false);
-
   async function toggleBookmark() {
     const newValue = !bookmarked;
     setBookmarked(newValue);
 
-    await supabase.from("Progress").upsert(
+    const { error } = await supabase.from("Progress").upsert(
       { concept_name: name, bookmarked: newValue },
       { onConflict: "concept_name" }
     );
+
+    if (error) {
+      setStatusMsg("Bookmark save failed: " + error.message);
+    }
   }
 
   if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
@@ -164,9 +182,11 @@ function ConceptDetail() {
         <Link to="/concepts" className="btn btn-secondary">
           ← Back to all concepts
         </Link>
-        <Link to={"/Cardiology/Hyperlipidemia/question?concept=" + concept.name} className="btn btn-coral">
-          Test yourself on this topic →
-        </Link>
+        {systemName && concept.disease && (
+          <Link to={"/" + systemName + "/" + concept.disease + "/question?concept=" + concept.name} className="btn btn-coral">
+            Test yourself on this topic →
+          </Link>
+        )}
       </div>
     </div>
   );

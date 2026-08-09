@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 function Concepts() {
+  const [searchParams] = useSearchParams();
+  const disease = searchParams.get("disease");
+
   const [concepts, setConcepts] = useState<any[]>([]);
   const [progress, setProgress] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -11,8 +14,13 @@ function Concepts() {
   useEffect(() => {
     async function fetchData() {
       try {
+        let query = supabase.from("Concepts").select("*");
+        if (disease) {
+          query = query.eq("disease", disease);
+        }
+
         const [conceptsResult, progressResult] = await Promise.all([
-          supabase.from("Concepts").select("*"),
+          query,
           supabase.from("Progress").select("*"),
         ]);
 
@@ -32,7 +40,7 @@ function Concepts() {
       }
     }
     fetchData();
-  }, []);
+  }, [disease]);
 
   function getStatus(conceptName: string) {
     const match = progress.find((p) => p.concept_name === conceptName);
@@ -57,7 +65,7 @@ function Concepts() {
   return (
     <div className="page">
       <div className="hero">
-        <h1>Concepts</h1>
+        <h1>{disease ? disease + " Concepts" : "Concepts"}</h1>
         <p>Browse each concept and see how it connects to the rest of the topic.</p>
       </div>
 

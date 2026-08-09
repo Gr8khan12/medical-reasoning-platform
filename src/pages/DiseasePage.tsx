@@ -14,7 +14,7 @@ function DiseasePage() {
       </div>
 
       <div className="grid">
-        <Link to="/concepts" className="card card-teal">
+        <Link to={"/concepts?disease=" + diseaseName} className="card card-teal">
           <h2>Explore Concepts</h2>
           <p className="text-secondary">Browse the topics and see how they connect</p>
         </Link>
