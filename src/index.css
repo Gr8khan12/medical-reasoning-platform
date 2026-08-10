@@ -50,6 +50,9 @@
   --color-green: #16a34a;
   --color-green-light: #e6f4ea;
 
+  --color-yellow: #e6d751;
+  --color-yellow-light: #fff9e6;
+
   --color-success: #15966a;
   --color-success-light: #e5f7f0;
   --color-danger: #e0433f;
@@ -169,6 +172,7 @@ p { color: var(--color-text); }
 .card-grey    { background: var(--color-grey-light);    border-color: transparent; border-left-color: var(--color-grey); }
 .card-orange  { background: var(--color-orange-light);  border-color: transparent; border-left-color: var(--color-orange); }
 .card-green   { background: var(--color-green-light);   border-color: transparent; border-left-color: var(--color-green); }
+.card-yellow  { background: var(--color-yellow-light);  border-color: transparent; border-left-color: var(--color-yellow); }
 
 /* --------------------------------------------------------------------------
    HERO / HEADER BANNER
@@ -243,6 +247,9 @@ p { color: var(--color-text); }
 
 .btn-green    { background: var(--color-green);   color: #fff; }
 .btn-green:hover    { background: #12803d; box-shadow: var(--shadow-md); }
+
+.btn-yellow   { background: var(--color-yellow);  color: #fff; }
+.btn-yellow:hover   { background: #c5b73a; box-shadow: var(--shadow-md); }
 
 .btn-secondary {
   background: var(--color-surface);
