@@ -9,9 +9,9 @@ function DiseasePage() {
   useEffect(() => {
     async function fetchColor() {
       const { data } = await supabase
-        .from("Systems")
+        .from("Diseases")
         .select("color")
-        .eq("name", systemName)
+        .eq("name", diseaseName)
         .maybeSingle();
 
       if (data?.color) {
@@ -19,7 +19,7 @@ function DiseasePage() {
       }
     }
     fetchColor();
-  }, [systemName]);
+  }, [diseaseName]);
 
   return (
     <div className="page" style={color ? { background: `var(--color-${color}-light)` } : undefined}>

@@ -8,6 +8,7 @@ function Concepts() {
 
   const [concepts, setConcepts] = useState<any[]>([]);
   const [progress, setProgress] = useState<any[]>([]);
+  const [color, setColor] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,6 +33,18 @@ function Concepts() {
 
         if (progressResult.data) {
           setProgress(progressResult.data);
+        }
+
+        if (disease) {
+          const { data: diseaseRow } = await supabase
+            .from("Diseases")
+            .select("color")
+            .eq("name", disease)
+            .maybeSingle();
+
+          if (diseaseRow?.color) {
+            setColor(diseaseRow.color);
+          }
         }
       } catch (err: any) {
         setErrorMsg("Caught exception: " + err.message);
@@ -63,7 +76,7 @@ function Concepts() {
   if (loading) return <p className="page">Loading concepts...</p>;
 
   return (
-    <div className="page">
+    <div className="page" style={color ? { background: `var(--color-${color}-light)` } : undefined}>
       <div className="hero">
         <h1>{disease ? disease + " Concepts" : "Concepts"}</h1>
         <p>Browse each concept and see how it connects to the rest of the topic.</p>
