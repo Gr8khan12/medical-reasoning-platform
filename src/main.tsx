@@ -10,6 +10,7 @@ import Question from './pages/Question.tsx'
 import Concepts from './pages/Concepts.tsx'
 import ConceptDetail from './pages/ConceptDetail.tsx'
 import Search from './pages/Search.tsx'
+import Bookmarks from './pages/Bookmarks.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/concepts" element={<Concepts />} />
         <Route path="/concepts/:name" element={<ConceptDetail />} />
         <Route path="/question" element={<Question />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

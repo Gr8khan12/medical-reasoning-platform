@@ -13,6 +13,7 @@ function NavBar() {
       <div className="nav-links">
         <Link to="/" className={isActive("/")}>Home</Link>
         <Link to="/search" className={isActive("/search")}>Search</Link>
+        <Link to="/bookmarks" className={isActive("/bookmarks")}>Bookmarks</Link>
       </div>
     </div>
   );
