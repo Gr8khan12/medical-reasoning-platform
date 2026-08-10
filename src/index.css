@@ -41,6 +41,9 @@
   --color-gold: #a3821f;
   --color-gold-light: #f7f0dd;
 
+  --color-grey: #6b7078;
+  --color-grey-light: #f7f7fb;
+
   --color-success: #15966a;
   --color-success-light: #e5f7f0;
   --color-danger: #e0433f;
@@ -157,6 +160,7 @@ p { color: var(--color-text); }
 .card-slate   { background: var(--color-slate-light);   border-color: transparent; border-left-color: var(--color-slate); }
 .card-crimson { background: var(--color-crimson-light); border-color: transparent; border-left-color: var(--color-crimson); }
 .card-gold    { background: var(--color-gold-light);    border-color: transparent; border-left-color: var(--color-gold); }
+.card-grey    { background: var(--color-grey-light);    border-color: transparent; border-left-color: var(--color-grey); }
 
 /* --------------------------------------------------------------------------
    HERO / HEADER BANNER
@@ -222,6 +226,9 @@ p { color: var(--color-text); }
 
 .btn-gold     { background: var(--color-gold);    color: #fff; }
 .btn-gold:hover     { background: #8a6d1a; box-shadow: var(--shadow-md); }
+
+.btn-grey     { background: var(--color-grey);    color: #fff; }
+.btn-grey:hover     { background: #4f545c; box-shadow: var(--shadow-md); }
 
 .btn-secondary {
   background: var(--color-surface);
