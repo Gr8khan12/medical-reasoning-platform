@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 function DiseasePage() {
-  const { systemName, diseaseName } = useParams();
+  const { systemName, topicName, diseaseName } = useParams();
   const [color, setColor] = useState<string | null>(null);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function DiseasePage() {
     <div className="page" style={color ? { background: `var(--color-${color}-light)` } : undefined}>
       <div className="hero">
         <span className="badge badge-primary" style={{ background: "rgba(255,255,255,0.2)", color: "#fff" }}>
-          {systemName}
+          {systemName} · {topicName}
         </span>
         <h1>{diseaseName}</h1>
         <p>Explore the key concepts behind {diseaseName}, then test what you've learned.</p>
@@ -37,7 +37,10 @@ function DiseasePage() {
           <p className="text-secondary">Browse the topics and see how they connect</p>
         </Link>
 
-        <Link to={"/" + systemName + "/" + diseaseName + "/question?disease=" + diseaseName} className="card card-coral">
+        <Link
+          to={"/" + systemName + "/" + topicName + "/" + diseaseName + "/question?disease=" + diseaseName}
+          className="card card-coral"
+        >
           <h2>Start Question</h2>
           <p className="text-secondary">Test your knowledge with a quick question</p>
         </Link>

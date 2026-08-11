@@ -11,6 +11,7 @@ import Concepts from './pages/Concepts.tsx'
 import ConceptDetail from './pages/ConceptDetail.tsx'
 import Search from './pages/Search.tsx'
 import Bookmarks from './pages/Bookmarks.tsx'
+import TopicPage from './pages/TopicPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,13 +20,15 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/:systemName" element={<SystemPage />} />
-        <Route path="/:systemName/:diseaseName" element={<DiseasePage />} />
-        <Route path="/:systemName/:diseaseName/question" element={<Question />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/question" element={<Question />} />
         <Route path="/concepts" element={<Concepts />} />
         <Route path="/concepts/:name" element={<ConceptDetail />} />
-        <Route path="/question" element={<Question />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/:systemName" element={<SystemPage />} />
+        <Route path="/:systemName/:topicName" element={<TopicPage />} />
+        <Route path="/:systemName/:topicName/:diseaseName" element={<DiseasePage />} />
+        <Route path="/:systemName/:topicName/:diseaseName/question" element={<Question />} />
+        <Route path="/:systemName/question" element={<Question />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

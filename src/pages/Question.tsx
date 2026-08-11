@@ -6,6 +6,7 @@ function Question() {
   const [searchParams] = useSearchParams();
   const concept = searchParams.get("concept");
   const disease = searchParams.get("disease");
+  const topic = searchParams.get("topic");
   const system = searchParams.get("system");
 
   const [questions, setQuestions] = useState<any[]>([]);
@@ -27,6 +28,18 @@ function Question() {
             .select("name")
             .eq("disease", disease);
           conceptNames = (conceptRows ?? []).map((c) => c.name);
+        } else if (topic) {
+          const { data: diseaseRows } = await supabase
+            .from("Diseases")
+            .select("name")
+            .eq("topic", topic);
+          const diseaseNames = (diseaseRows ?? []).map((d) => d.name);
+
+          const { data: conceptRows } = await supabase
+            .from("Concepts")
+            .select("name")
+            .in("disease", diseaseNames);
+          conceptNames = (conceptRows ?? []).map((c) => c.name);
         } else if (system) {
           const { data: diseaseRows } = await supabase
             .from("Diseases")
@@ -45,7 +58,6 @@ function Question() {
         if (conceptNames) {
           query = query.in("concept", conceptNames);
         }
-        // if conceptNames is null (no concept/disease/system param), fetch ALL questions
 
         const { data, error } = await query;
 
@@ -61,14 +73,17 @@ function Question() {
       }
     }
     fetchQuestions();
-  }, [concept, disease, system]);
+  }, [concept, disease, topic, system]);
 
   if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
   if (loading) return <p className="page">Loading questions...</p>;
   if (questions.length === 0) {
     return (
       <div className="page">
-        <p className="text-secondary">No questions found{concept ? " for " + concept : ""}.</p>
+        <p className="text-secondary">
+          No questions found
+          {concept ? " for " + concept : disease ? " for " + disease : topic ? " for " + topic : system ? " for " + system : ""}.
+        </p>
         <Link to="/concepts" className="btn btn-secondary">Back to Concepts</Link>
       </div>
     );
@@ -101,34 +116,34 @@ function Question() {
   }
 
   async function recordAnswer(isCorrect: boolean) {
-  if (!concept) return;
+    if (!concept) return;
 
-  const { data: existing } = await supabase
-    .from("Progress")
-    .select("*")
-    .eq("concept_name", concept)
-    .maybeSingle();
+    const { data: existing } = await supabase
+      .from("Progress")
+      .select("*")
+      .eq("concept_name", concept)
+      .maybeSingle();
 
-  const questionsAnswered = (existing?.questions_answered ?? 0) + 1;
-  const correctCount = (existing?.correct_count ?? 0) + (isCorrect ? 1 : 0);
-  const incorrectCount = (existing?.incorrect_count ?? 0) + (isCorrect ? 0 : 1);
+    const questionsAnswered = (existing?.questions_answered ?? 0) + 1;
+    const correctCount = (existing?.correct_count ?? 0) + (isCorrect ? 1 : 0);
+    const incorrectCount = (existing?.incorrect_count ?? 0) + (isCorrect ? 0 : 1);
 
-  await supabase.from("Progress").upsert(
-    {
-      concept_name: concept,
-      questions_answered: questionsAnswered,
-      correct_count: correctCount,
-      incorrect_count: incorrectCount,
-    },
-    { onConflict: "concept_name" }
-  );
-}
+    await supabase.from("Progress").upsert(
+      {
+        concept_name: concept,
+        questions_answered: questionsAnswered,
+        correct_count: correctCount,
+        incorrect_count: incorrectCount,
+      },
+      { onConflict: "concept_name" }
+    );
+  }
 
   return (
     <div className="page">
       <h1>
         Questions
-        {concept ? ": " + concept : disease ? ": " + disease : system ? ": " + system : ": All Topics"}
+        {concept ? ": " + concept : disease ? ": " + disease : topic ? ": " + topic : system ? ": " + system : ": All Topics"}
       </h1>
 
       <div className="card">
@@ -179,12 +194,7 @@ function Question() {
               </button>
             )}
 
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                setSelected(null);
-              }}
-            >
+            <button className="btn btn-secondary" onClick={() => setSelected(null)}>
               Retry This Question
             </button>
 
