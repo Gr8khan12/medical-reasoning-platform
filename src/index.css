@@ -52,6 +52,9 @@
 
   --color-yellow: #e6d751;
   --color-yellow-light: #fff9e6;
+  
+  --color-jade: #00bfa5;
+  --color-jade-light: #e6f9f6;
 
   --color-success: #15966a;
   --color-success-light: #e5f7f0;
@@ -135,6 +138,69 @@ p { color: var(--color-text); }
   gap: var(--space-lg);
 }
 
+.learn-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: var(--space-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+  align-items: start;
+}
+
+.learn-main {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.learn-main h2 {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.learn-main h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.learn-main p {
+  margin-bottom: var(--space-md);
+  line-height: 1.7;
+}
+
+.learn-sidebar {
+  position: sticky;
+  top: calc(var(--space-md) + 60px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.learn-sidebar .card {
+  padding: var(--space-md);
+}
+
+.learn-sidebar h3 {
+  font-size: var(--font-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+@media (max-width: 900px) {
+  .learn-layout {
+    grid-template-columns: 1fr;
+  }
+  .learn-sidebar {
+    position: static;
+  }
+}
+
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -173,6 +239,7 @@ p { color: var(--color-text); }
 .card-orange  { background: var(--color-orange-light);  border-color: transparent; border-left-color: var(--color-orange); }
 .card-green   { background: var(--color-green-light);   border-color: transparent; border-left-color: var(--color-green); }
 .card-yellow  { background: var(--color-yellow-light);  border-color: transparent; border-left-color: var(--color-yellow); }
+.card-jade    { background: var(--color-jade-light);    border-color: transparent; border-left-color: var(--color-jade); }
 
 /* --------------------------------------------------------------------------
    HERO / HEADER BANNER
@@ -250,6 +317,9 @@ p { color: var(--color-text); }
 
 .btn-yellow   { background: var(--color-yellow);  color: #fff; }
 .btn-yellow:hover   { background: #c5b73a; box-shadow: var(--shadow-md); }
+
+.btn-jade     { background: var(--color-jade);    color: #fff; }
+.btn-jade:hover     { background: #009e8f; box-shadow: var(--shadow-md); }
 
 .btn-secondary {
   background: var(--color-surface);
@@ -409,3 +479,8 @@ p { color: var(--color-text); }
 .badge-slate   { background: var(--color-slate-light);   color: var(--color-slate); }
 .badge-crimson { background: var(--color-crimson-light); color: var(--color-crimson); }
 .badge-gold    { background: var(--color-gold-light);    color: var(--color-gold); }
+.badge-grey    { background: var(--color-grey-light);    color: var(--color-grey); }
+.badge-orange  { background: var(--color-orange-light);  color: var(--color-orange); }
+.badge-green   { background: var(--color-green-light);   color: var(--color-green); }
+.badge-yellow  { background: var(--color-yellow-light);  color: var(--color-yellow); }
+.badge-jade    { background: var(--color-jade-light);    color: var(--color-jade); }
