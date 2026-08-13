@@ -56,6 +56,9 @@
   --color-jade: #00bfa5;
   --color-jade-light: #e6f9f6;
 
+  --color-bone: #feffc7;
+  ---color-bone-light: #fffef0;
+
   --color-success: #15966a;
   --color-success-light: #e5f7f0;
   --color-danger: #e0433f;
@@ -240,6 +243,7 @@ p { color: var(--color-text); }
 .card-green   { background: var(--color-green-light);   border-color: transparent; border-left-color: var(--color-green); }
 .card-yellow  { background: var(--color-yellow-light);  border-color: transparent; border-left-color: var(--color-yellow); }
 .card-jade    { background: var(--color-jade-light);    border-color: transparent; border-left-color: var(--color-jade); }
+.card-bone    { background: var(--color-bone-light);    border-color: transparent; border-left-color: var(--color-bone); }
 
 /* --------------------------------------------------------------------------
    HERO / HEADER BANNER
@@ -320,6 +324,9 @@ p { color: var(--color-text); }
 
 .btn-jade     { background: var(--color-jade);    color: #fff; }
 .btn-jade:hover     { background: #009e8f; box-shadow: var(--shadow-md); }
+
+.btn-bone     { background: var(--color-bone);    color: #fff; }
+.btn-bone:hover     { background: #e6e5a3; box-shadow: var(--shadow-md); }
 
 .btn-secondary {
   background: var(--color-surface);
@@ -484,3 +491,4 @@ p { color: var(--color-text); }
 .badge-green   { background: var(--color-green-light);   color: var(--color-green); }
 .badge-yellow  { background: var(--color-yellow-light);  color: var(--color-yellow); }
 .badge-jade    { background: var(--color-jade-light);    color: var(--color-jade); }
+.badge-bone    { background: var(--color-bone-light);    color: var(--color-bone); }

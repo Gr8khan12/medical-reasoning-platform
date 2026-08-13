@@ -6,7 +6,9 @@ function ConceptDetail() {
   const { name } = useParams();
   const [concept, setConcept] = useState<any>(null);
   const [children, setChildren] = useState<any[]>([]);
+  const [lectures, setLectures] = useState<any[]>([]);
   const [systemName, setSystemName] = useState<string | null>(null);
+  const [topicName, setTopicName] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
@@ -35,15 +37,24 @@ function ConceptDetail() {
           .eq("parent_concept", name);
         setChildren(childData ?? []);
 
+        const { data: lectureData } = await supabase
+          .from("Lectures")
+          .select("*")
+          .eq("concept", name);
+        setLectures(lectureData ?? []);
+
         if (data.disease) {
           const { data: diseaseData } = await supabase
             .from("Diseases")
-            .select("system")
+            .select("system, topic")
             .eq("name", data.disease)
             .maybeSingle();
 
           if (diseaseData?.system) {
             setSystemName(diseaseData.system);
+          }
+          if (diseaseData?.topic) {
+            setTopicName(diseaseData.topic);
           }
         }
 
@@ -136,9 +147,26 @@ function ConceptDetail() {
             <p className="text-secondary">No detailed learning content has been added for this concept yet.</p>
           )}
 
-          {systemName && concept.disease && (
+          {lectures.length > 0 && (
+            <>
+              <h2>Related Lectures</h2>
+              {lectures.map((l) => (
+                <Link
+                  key={l.id}
+                  to={"/lectures/" + l.id}
+                  className="card"
+                  style={{ display: "block", marginBottom: "12px", textDecoration: "none" }}
+                >
+                  <h3 style={{ marginBottom: "4px" }}>{l.title}</h3>
+                  {l.author && <p className="text-secondary">By {l.author}</p>}
+                </Link>
+              ))}
+            </>
+          )}
+
+          {systemName && topicName && concept.disease && (
             <Link
-              to={"/" + systemName + "/" + concept.disease + "/question?concept=" + concept.name}
+              to={"/" + systemName + "/" + topicName + "/" + concept.disease + "/question?concept=" + concept.name}
               className="btn btn-coral"
               style={{ marginTop: "16px", display: "inline-block" }}
             >

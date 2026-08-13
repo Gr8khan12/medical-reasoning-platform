@@ -12,6 +12,8 @@ import ConceptDetail from './pages/ConceptDetail.tsx'
 import Search from './pages/Search.tsx'
 import Bookmarks from './pages/Bookmarks.tsx'
 import TopicPage from './pages/TopicPage.tsx'
+import Lectures from './pages/Lectures.tsx'
+import LectureDetail from './pages/LectureDetail.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -29,6 +31,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/:systemName/:topicName/:diseaseName" element={<DiseasePage />} />
         <Route path="/:systemName/:topicName/:diseaseName/question" element={<Question />} />
         <Route path="/:systemName/question" element={<Question />} />
+        <Route path="/lectures" element={<Lectures />} />
+        <Route path="/lectures/:id" element={<LectureDetail />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

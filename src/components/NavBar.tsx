@@ -14,6 +14,7 @@ function NavBar() {
         <Link to="/" className={isActive("/")}>Home</Link>
         <Link to="/search" className={isActive("/search")}>Search</Link>
         <Link to="/bookmarks" className={isActive("/bookmarks")}>Bookmarks</Link>
+        <Link to="/lectures" className={isActive("/lectures")}>Lectures</Link>
       </div>
     </div>
   );
