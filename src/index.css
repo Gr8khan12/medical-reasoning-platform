@@ -4,97 +4,136 @@
    How to use: link this file in the HTML with:
    <link rel="stylesheet" href="styles.css">
    ========================================================================== */
-
+ 
 :root {
-  /* Core palette — six colors, each with a purpose, muted rather than neon */
-  --color-primary: #3d4fc4;        /* indigo — main brand color, nav, primary buttons, selected state */
+  /* Core palette */
+  --color-primary: #3d4fc4;
   --color-primary-dark: #323f9e;
   --color-primary-light: #eaecfa;
-
-  --color-teal: #147d72;           /* practice / learning content */
+ 
+  --color-teal: #147d72;
   --color-teal-light: #e3f2ef;
-
-  --color-coral: #c85a3e;          /* quiz accents / energy */
+ 
+  --color-coral: #c85a3e;
   --color-coral-light: #f7e9e3;
-
-  --color-amber: #b8791a;          /* streaks, warnings, attention */
+ 
+  --color-amber: #b8791a;
   --color-amber-light: #f7edd9;
-
-  --color-violet: #7c5cbf;         /* fifth accent — extra subject color */
+ 
+  --color-violet: #7c5cbf;
   --color-violet-light: #efeaf8;
-
-  --color-rose: #b5486e;           /* sixth accent — extra subject color */
+ 
+  --color-rose: #b5486e;
   --color-rose-light: #f8e9ee;
-
+ 
   --color-sky: #2b7fb8;
   --color-sky-light: #e5f1f8;
-
+ 
   --color-olive: #6b7f1f;
   --color-olive-light: #eef2e0;
-
+ 
   --color-slate: #4a5568;
   --color-slate-light: #e9ecf0;
-
+ 
   --color-crimson: #a3253f;
   --color-crimson-light: #f8e5e9;
-
+ 
   --color-gold: #a3821f;
   --color-gold-light: #f7f0dd;
-
+ 
   --color-grey: #6b7078;
   --color-grey-light: #f7f7fb;
-
+ 
   --color-orange: #f97316;
   --color-orange-light: #fff4e6;
-
+ 
   --color-green: #16a34a;
   --color-green-light: #e6f4ea;
-
-  --color-yellow: #e6d751;
+ 
+  --color-yellow: #c9a227;
   --color-yellow-light: #fff9e6;
-  
+ 
   --color-jade: #00bfa5;
   --color-jade-light: #e6f9f6;
-
-  --color-bone: #feffc7;
-  ---color-bone-light: #fffef0;
-
+ 
+  --color-bone: #d8d6a0;
+  --color-bone-light: #fffef0;
+ 
+  --color-cyan: #0e8fa3;
+  --color-cyan-light: #e2f4f7;
+ 
+  --color-magenta: #a83d82;
+  --color-magenta-light: #f8e6f1;
+ 
+  --color-navy: #1e3a5f;
+  --color-navy-light: #e5eaf0;
+ 
+  --color-plum: #7a4a72;
+  --color-plum-light: #f1e6ee;
+ 
+  --color-rust: #a3502c;
+  --color-rust-light: #f6e6dd;
+ 
+  --color-salmon: #c15a3f;
+  --color-salmon-light: #f9e6e0;
+ 
+  --color-lavender: #7a68b0;
+  --color-lavender-light: #ece9f7;
+ 
+  --color-copper: #b0703a;
+  --color-copper-light: #f5e9dc;
+ 
+  --color-maroon: #7a1f2e;
+  --color-maroon-light: #f2e0e2;
+ 
+  --color-mint: #2f9e7a;
+  --color-mint-light: #e2f5ee;
+ 
+  --color-babyblue: #8bc8ec;
+  --color-babyblue-light: #b1ddf7;
+ 
+  --color-babypink: #F4B6C2;
+  --color-babypink-light: #fde0e6;
+ 
+  --color-seafoam: #7EC9BB;
+  --color-seafoam-light: #bef5ea;
+ 
   --color-success: #15966a;
   --color-success-light: #e5f7f0;
   --color-danger: #e0433f;
   --color-danger-light: #fdecec;
-
+ 
   --color-text: #16181d;
   --color-text-secondary: #6b7078;
   --color-border: #e5e7eb;
   --color-background: #f7f7fb;
   --color-surface: #ffffff;
-
+ 
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 40px;
-
+ 
   --radius: 12px;
   --radius-sm: 8px;
   --radius-lg: 18px;
-
+ 
   --font-sm: 13px;
   --font-base: 15px;
   --font-lg: 18px;
   --font-xl: 30px;
-
+ 
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
   --shadow-md: 0 8px 20px rgba(16, 24, 40, 0.08);
 }
-
+ 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
+ 
 body {
   font-family: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background: var(--color-background);
@@ -104,43 +143,43 @@ body {
   -webkit-font-smoothing: antialiased;
   text-align: center;
 }
-
+ 
 h1 {
   font-size: var(--font-xl);
   font-weight: 700;
   letter-spacing: -0.5px;
   margin-bottom: var(--space-sm);
 }
-
+ 
 h2 {
   font-size: var(--font-lg);
   font-weight: 600;
   letter-spacing: -0.2px;
   margin-bottom: var(--space-md);
 }
-
+ 
 p { color: var(--color-text); }
-
+ 
 .text-secondary {
   color: var(--color-text-secondary);
   font-size: var(--font-sm);
 }
-
+ 
 /* --------------------------------------------------------------------------
-   LAYOUT — wide desktop page, not a phone-width column
+   LAYOUT
    -------------------------------------------------------------------------- */
 .page {
   max-width: 1100px;
   margin: 0 auto;
   padding: var(--space-xl) var(--space-lg);
 }
-
+ 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--space-lg);
 }
-
+ 
 .learn-layout {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -150,31 +189,31 @@ p { color: var(--color-text); }
   padding: var(--space-xl) var(--space-lg);
   align-items: start;
 }
-
+ 
 .learn-main {
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   box-shadow: var(--shadow-sm);
 }
-
+ 
 .learn-main h2 {
   margin-top: var(--space-lg);
   padding-top: var(--space-lg);
   border-top: 1px solid var(--color-border);
 }
-
+ 
 .learn-main h2:first-child {
   margin-top: 0;
   padding-top: 0;
   border-top: none;
 }
-
+ 
 .learn-main p {
   margin-bottom: var(--space-md);
   line-height: 1.7;
 }
-
+ 
 .learn-sidebar {
   position: sticky;
   top: calc(var(--space-md) + 60px);
@@ -182,11 +221,11 @@ p { color: var(--color-text); }
   flex-direction: column;
   gap: var(--space-md);
 }
-
+ 
 .learn-sidebar .card {
   padding: var(--space-md);
 }
-
+ 
 .learn-sidebar h3 {
   font-size: var(--font-sm);
   text-transform: uppercase;
@@ -194,7 +233,7 @@ p { color: var(--color-text); }
   color: var(--color-text-secondary);
   margin-bottom: var(--space-sm);
 }
-
+ 
 @media (max-width: 900px) {
   .learn-layout {
     grid-template-columns: 1fr;
@@ -203,7 +242,7 @@ p { color: var(--color-text); }
     position: static;
   }
 }
-
+ 
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -212,22 +251,22 @@ p { color: var(--color-text); }
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
-
+ 
 .card-header-band {
   margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-md) calc(-1 * var(--space-lg));
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   color: #fff;
 }
-
+ 
 .card-header-band h2 { color: #fff; margin: 0; }
-
+ 
 .card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
-
-/* Color-tinted card variants — use these to color-code sections */
+ 
+/* Color-tinted card variants */
 .card-teal    { background: var(--color-teal-light);    border-color: transparent; border-left-color: var(--color-teal); }
 .card-coral   { background: var(--color-coral-light);   border-color: transparent; border-left-color: var(--color-coral); }
 .card-amber   { background: var(--color-amber-light);   border-color: transparent; border-left-color: var(--color-amber); }
@@ -244,7 +283,21 @@ p { color: var(--color-text); }
 .card-yellow  { background: var(--color-yellow-light);  border-color: transparent; border-left-color: var(--color-yellow); }
 .card-jade    { background: var(--color-jade-light);    border-color: transparent; border-left-color: var(--color-jade); }
 .card-bone    { background: var(--color-bone-light);    border-color: transparent; border-left-color: var(--color-bone); }
-
+.card-cyan    { background: var(--color-cyan-light);    border-color: transparent; border-left-color: var(--color-cyan); }
+.card-magenta { background: var(--color-magenta-light); border-color: transparent; border-left-color: var(--color-magenta); }
+.card-navy    { background: var(--color-navy-light);    border-color: transparent; border-left-color: var(--color-navy); }
+.card-plum    { background: var(--color-plum-light);    border-color: transparent; border-left-color: var(--color-plum); }
+.card-rust    { background: var(--color-rust-light);    border-color: transparent; border-left-color: var(--color-rust); }
+.card-salmon  { background: var(--color-salmon-light);  border-color: transparent; border-left-color: var(--color-salmon); }
+.card-lavender{ background: var(--color-lavender-light);border-color: transparent; border-left-color: var(--color-lavender); }
+.card-copper  { background: var(--color-copper-light);  border-color: transparent; border-left-color: var(--color-copper); }
+.card-maroon  { background: var(--color-maroon-light);  border-color: transparent; border-left-color: var(--color-maroon); }
+.card-mint    { background: var(--color-mint-light);    border-color: transparent; border-left-color: var(--color-mint); }
+.card-babyblue{ background: var(--color-babyblue-light);border-color: transparent; border-left-color: var(--color-babyblue);}
+.card-babypink{ background: var(--color-babypink-light);border-color: transparent; border-left-color: var(--color-babypink);}
+.card-seafoam { background: var(--color-seafoam-light); border-color: transparent; border-left-color: var(--color-seafoam);}
+ 
+ 
 /* --------------------------------------------------------------------------
    HERO / HEADER BANNER
    -------------------------------------------------------------------------- */
@@ -255,10 +308,9 @@ p { color: var(--color-text); }
   padding: var(--space-xl);
   margin-bottom: var(--space-lg);
 }
-
+ 
 .hero h1 { color: #ffffff; }
 .hero p { color: rgba(255,255,255,0.85); }
-
 /* --------------------------------------------------------------------------
    BUTTONS
    -------------------------------------------------------------------------- */
@@ -273,68 +325,108 @@ p { color: var(--color-text); }
   text-align: center;
   transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
 }
-
+ 
 .btn:active { transform: scale(0.98); }
 .btn:hover { transform: translateY(-2px); }
-
+ 
 .btn-primary { background: var(--color-primary); color: #fff; box-shadow: var(--shadow-sm); }
 .btn-primary:hover { background: var(--color-primary-dark); box-shadow: var(--shadow-md); }
-
+ 
 .btn-teal   { background: var(--color-teal);   color: #fff; }
-.btn-teal:hover   { background: var(--color-teal-dark, #0f5f57); box-shadow: var(--shadow-md); }
-
+.btn-teal:hover   { background: #0f5f57; box-shadow: var(--shadow-md); }
+ 
 .btn-coral  { background: var(--color-coral);  color: #fff; }
-.btn-coral:hover  { background: var(--color-coral-dark, #a8492f); box-shadow: var(--shadow-md); }
-
+.btn-coral:hover  { background: #a8492f; box-shadow: var(--shadow-md); }
+ 
 .btn-amber  { background: var(--color-amber);  color: #fff; }
-.btn-amber:hover  { background: var(--color-amber-dark, #96620f); box-shadow: var(--shadow-md); }
-
+.btn-amber:hover  { background: #96620f; box-shadow: var(--shadow-md); }
+ 
 .btn-violet { background: var(--color-violet); color: #fff; }
-.btn-violet:hover { background: var(--color-violet-dark, #6849a3); box-shadow: var(--shadow-md); }
-
+.btn-violet:hover { background: #6849a3; box-shadow: var(--shadow-md); }
+ 
 .btn-rose   { background: var(--color-rose);   color: #fff; }
-.btn-rose:hover   { background: var(--color-rose-dark, #983a5c); box-shadow: var(--shadow-md); }
-
+.btn-rose:hover   { background: #983a5c; box-shadow: var(--shadow-md); }
+ 
 .btn-sky      { background: var(--color-sky);     color: #fff; }
 .btn-sky:hover      { background: #23698f; box-shadow: var(--shadow-md); }
-
+ 
 .btn-olive    { background: var(--color-olive);   color: #fff; }
 .btn-olive:hover    { background: #57671a; box-shadow: var(--shadow-md); }
-
+ 
 .btn-slate    { background: var(--color-slate);   color: #fff; }
 .btn-slate:hover    { background: #3a4457; box-shadow: var(--shadow-md); }
-
+ 
 .btn-crimson  { background: var(--color-crimson); color: #fff; }
 .btn-crimson:hover  { background: #841f34; box-shadow: var(--shadow-md); }
-
+ 
 .btn-gold     { background: var(--color-gold);    color: #fff; }
 .btn-gold:hover     { background: #8a6d1a; box-shadow: var(--shadow-md); }
-
+ 
 .btn-grey     { background: var(--color-grey);    color: #fff; }
 .btn-grey:hover     { background: #4f545c; box-shadow: var(--shadow-md); }
-
+ 
 .btn-orange   { background: var(--color-orange);  color: #fff; }
 .btn-orange:hover   { background: #c55f1a; box-shadow: var(--shadow-md); }
-
+ 
 .btn-green    { background: var(--color-green);   color: #fff; }
 .btn-green:hover    { background: #12803d; box-shadow: var(--shadow-md); }
-
-.btn-yellow   { background: var(--color-yellow);  color: #fff; }
-.btn-yellow:hover   { background: #c5b73a; box-shadow: var(--shadow-md); }
-
+ 
+/* Fixed: yellow and bone are too pale for white text (contrast bug) — dark text instead */
+.btn-yellow   { background: var(--color-yellow);  color: var(--color-text); }
+.btn-yellow:hover   { background: #ad8a1f; box-shadow: var(--shadow-md); }
+ 
 .btn-jade     { background: var(--color-jade);    color: #fff; }
 .btn-jade:hover     { background: #009e8f; box-shadow: var(--shadow-md); }
-
-.btn-bone     { background: var(--color-bone);    color: #fff; }
-.btn-bone:hover     { background: #e6e5a3; box-shadow: var(--shadow-md); }
-
+ 
+.btn-bone     { background: var(--color-bone);    color: var(--color-text); }
+.btn-bone:hover     { background: #c9c78a; box-shadow: var(--shadow-md); }
+ 
+.btn-cyan     { background: var(--color-cyan);     color: #fff; }
+.btn-cyan:hover     { background: #0b7383; box-shadow: var(--shadow-md); }
+ 
+.btn-magenta  { background: var(--color-magenta);  color: #fff; }
+.btn-magenta:hover  { background: #8a3269; box-shadow: var(--shadow-md); }
+ 
+.btn-navy     { background: var(--color-navy);     color: #fff; }
+.btn-navy:hover     { background: #162c48; box-shadow: var(--shadow-md); }
+ 
+.btn-plum     { background: var(--color-plum);     color: #fff; }
+.btn-plum:hover     { background: #623a5c; box-shadow: var(--shadow-md); }
+ 
+.btn-rust     { background: var(--color-rust);     color: #fff; }
+.btn-rust:hover     { background: #854023; box-shadow: var(--shadow-md); }
+ 
+.btn-salmon   { background: var(--color-salmon);   color: #fff; }
+.btn-salmon:hover   { background: #9c4832; box-shadow: var(--shadow-md); }
+ 
+.btn-lavender { background: var(--color-lavender); color: #fff; }
+.btn-lavender:hover { background: #63548e; box-shadow: var(--shadow-md); }
+ 
+.btn-copper   { background: var(--color-copper);   color: #fff; }
+.btn-copper:hover   { background: #8f5a2e; box-shadow: var(--shadow-md); }
+ 
+.btn-maroon   { background: var(--color-maroon);   color: #fff; }
+.btn-maroon:hover   { background: #611924; box-shadow: var(--shadow-md); }
+ 
+.btn-mint     { background: var(--color-mint);     color: #fff; }
+.btn-mint:hover     { background: #257f62; box-shadow: var(--shadow-md); }
+ 
+.btn-babyblue { background: var(--color-babyblue); color: var(--color-text); }
+.btn-babyblue:hover { background: #6fb3d9; box-shadow: var(--shadow-md); }
+ 
+.btn-babypink { background: var(--color-babypink); color: var(--color-text); }
+.btn-babypink:hover { background: #ee9aab; box-shadow: var(--shadow-md); }
+ 
+.btn-seafoam { background: var(--color-seafoam); color: var(--color-text); }
+.btn-seafoam:hover { background: #5fb3a3; box-shadow: var(--shadow-md); }
+ 
 .btn-secondary {
   background: var(--color-surface);
   color: var(--color-text);
   border: 1px solid var(--color-border);
 }
 .btn-secondary:hover { background: var(--color-background); }
-
+ 
 /* --------------------------------------------------------------------------
    FORM INPUTS
    -------------------------------------------------------------------------- */
@@ -349,15 +441,15 @@ p { color: var(--color-text); }
   margin-bottom: var(--space-sm);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-
+ 
 .input:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-primary-light);
 }
-
+ 
 .input::placeholder { color: var(--color-text-secondary); }
-
+ 
 /* --------------------------------------------------------------------------
    QUIZ / PRACTICE
    -------------------------------------------------------------------------- */
@@ -369,19 +461,19 @@ p { color: var(--color-text); }
   letter-spacing: 0.5px;
   margin-bottom: var(--space-sm);
 }
-
+ 
 .quiz-question {
   font-size: var(--font-lg);
   font-weight: 600;
   margin-bottom: var(--space-md);
 }
-
+ 
 .answer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-sm);
 }
-
+ 
 .answer-option {
   display: block;
   width: 100%;
@@ -394,7 +486,7 @@ p { color: var(--color-text); }
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
-
+ 
 .answer-option:hover { border-color: var(--color-primary); background: var(--color-primary-light); }
 .answer-option.selected { border-color: var(--color-primary); background: var(--color-primary-light); }
 .answer-option.correct {
@@ -405,7 +497,7 @@ p { color: var(--color-text); }
   border-color: var(--color-danger); background: var(--color-danger-light);
   color: var(--color-danger); font-weight: 600;
 }
-
+ 
 /* --------------------------------------------------------------------------
    PROGRESS / STATS
    -------------------------------------------------------------------------- */
@@ -414,7 +506,7 @@ p { color: var(--color-text); }
   font-weight: 700;
   letter-spacing: -0.5px;
 }
-
+ 
 .progress-bar-track {
   width: 100%;
   height: 10px;
@@ -423,16 +515,15 @@ p { color: var(--color-text); }
   overflow: hidden;
   margin-top: var(--space-sm);
 }
-
+ 
 .progress-bar-fill {
   height: 100%;
   border-radius: 999px;
   transition: width 0.3s ease;
-  /* set width + background color in the HTML, e.g. style="width:80%; background:var(--color-teal)" */
 }
-
+ 
 /* --------------------------------------------------------------------------
-   TOP NAVIGATION — full-width desktop bar
+   TOP NAVIGATION
    -------------------------------------------------------------------------- */
 .nav-bar {
   display: flex;
@@ -445,15 +536,15 @@ p { color: var(--color-text); }
   top: 0;
   z-index: 10;
 }
-
+ 
 .nav-brand {
   font-size: var(--font-lg);
   font-weight: 700;
   color: var(--color-primary);
 }
-
+ 
 .nav-links { display: flex; gap: var(--space-sm); }
-
+ 
 .nav-item {
   font-size: var(--font-base);
   font-weight: 500;
@@ -463,11 +554,10 @@ p { color: var(--color-text); }
   border-radius: var(--radius-sm);
   transition: background 0.15s ease, color 0.15s ease;
 }
-
+ 
 .nav-item:hover { background: var(--color-background); }
 .nav-item.active { color: var(--color-primary); background: var(--color-primary-light); }
-
-/* Badges — small colored labels, e.g. topic tags */
+/* Badges */
 .badge {
   display: inline-block;
   padding: 4px 10px;
@@ -492,3 +582,155 @@ p { color: var(--color-text); }
 .badge-yellow  { background: var(--color-yellow-light);  color: var(--color-yellow); }
 .badge-jade    { background: var(--color-jade-light);    color: var(--color-jade); }
 .badge-bone    { background: var(--color-bone-light);    color: var(--color-bone); }
+.badge-cyan    { background: var(--color-cyan-light);      color: var(--color-cyan); }
+.badge-magenta { background: var(--color-magenta-light);   color: var(--color-magenta); }
+.badge-navy    { background: var(--color-navy-light);      color: var(--color-navy); }
+.badge-plum    { background: var(--color-plum-light);      color: var(--color-plum); }
+.badge-rust    { background: var(--color-rust-light);      color: var(--color-rust); }
+.badge-salmon  { background: var(--color-salmon-light);    color: var(--color-salmon); }
+.badge-lavender{ background: var(--color-lavender-light);  color: var(--color-lavender); }
+.badge-copper  { background: var(--color-copper-light);    color: var(--color-copper); }
+.badge-maroon  { background: var(--color-maroon-light);    color: var(--color-maroon); }
+.badge-mint    { background: var(--color-mint-light);      color: var(--color-mint); }
+.badge-babyblue{ background: var(--color-babyblue-light); color: var(--color-babyblue); }
+.badge-babypink{ background: var(--color-babypink-light); color: var(--color-babypink); }
+.badge-seafoam { background: var(--color-seafoam-light);  color: var(--color-seafoam); }
+ 
+/* ==========================================================================
+   ADDITIONS — card-row variant, loading state, empty state, breadcrumb
+   ========================================================================== */
+ 
+/* --------------------------------------------------------------------------
+   1. CARD-ROW — horizontal card, colored accent strip on the left
+      (PRIORITY: feature is blocked on this one)
+   -------------------------------------------------------------------------- */
+.card-row {
+  display: flex;
+  align-items: stretch;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden; /* clips the accent strip to match the rounded corners */
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+ 
+.card-row:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+ 
+.card-row-accent {
+  width: 8px;
+  flex-shrink: 0;
+  background: var(--color-primary); /* set inline per item from React, same pattern as card-header-band */
+}
+ 
+.card-row-content {
+  flex: 1;
+  min-width: 0; /* lets long titles/subtitles truncate instead of overflowing */
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+ 
+.card-row-title {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+ 
+.card-row-subtitle {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+ 
+/* --------------------------------------------------------------------------
+   2. LOADING STATE — pulsing skeleton placeholder
+   -------------------------------------------------------------------------- */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg) 0;
+}
+ 
+.skeleton-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+ 
+.skeleton-line {
+  height: 14px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--color-border) 25%, #f0f1f4 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+  margin-bottom: var(--space-sm);
+}
+ 
+.skeleton-line:last-child {
+  margin-bottom: 0;
+  width: 60%; /* shorter last line, mimics real text wrapping */
+}
+ 
+@keyframes skeleton-pulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+ 
+/* --------------------------------------------------------------------------
+   3. EMPTY STATE
+   -------------------------------------------------------------------------- */
+.empty-state {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  color: var(--color-text-secondary);
+}
+ 
+.empty-state-icon {
+  font-size: 32px;
+  margin-bottom: var(--space-sm);
+  opacity: 0.5;
+}
+ 
+.empty-state-title {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+ 
+.empty-state-text {
+  font-size: var(--font-sm);
+}
+ 
+/* --------------------------------------------------------------------------
+   4. BREADCRUMB
+   -------------------------------------------------------------------------- */
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+ 
+.breadcrumb-item {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+ 
+.breadcrumb-item.current {
+  color: var(--color-primary);
+}
+ 
+.breadcrumb-separator {
+  font-size: var(--font-sm);
+  color: var(--color-border);
+}

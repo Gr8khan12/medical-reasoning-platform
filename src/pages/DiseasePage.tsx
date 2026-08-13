@@ -3,44 +3,55 @@ import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 function DiseasePage() {
-  const { systemName, topicName, diseaseName } = useParams();
-  const [color, setColor] = useState<string | null>(null);
+  const { diseaseId } = useParams();
+  const [disease, setDisease] = useState<any>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchColor() {
-      const { data } = await supabase
-        .from("Diseases")
-        .select("color")
-        .eq("name", diseaseName)
-        .maybeSingle();
+    async function fetchDisease() {
+      try {
+        const { data, error } = await supabase
+          .from("Diseases")
+          .select("*")
+          .eq("id", diseaseId)
+          .single();
 
-      if (data?.color) {
-        setColor(data.color);
+        if (error) {
+          setErrorMsg(error.message);
+        } else {
+          setDisease(data);
+        }
+      } catch (err: any) {
+        setErrorMsg("Caught exception: " + err.message);
+      } finally {
+        setLoading(false);
       }
     }
-    fetchColor();
-  }, [diseaseName]);
+    fetchDisease();
+  }, [diseaseId]);
+
+  if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
+  if (loading) return <p className="page">Loading disease...</p>;
+  if (!disease) return <p className="page">Disease not found.</p>;
 
   return (
-    <div className="page" style={color ? { background: `var(--color-${color}-light)` } : undefined}>
+    <div className="page" style={disease.color ? { background: `var(--color-${disease.color}-light)` } : undefined}>
       <div className="hero">
         <span className="badge badge-primary" style={{ background: "rgba(255,255,255,0.2)", color: "#fff" }}>
-          {systemName} · {topicName}
+          {disease.system} · {disease.topic}
         </span>
-        <h1>{diseaseName}</h1>
-        <p>Explore the key concepts behind {diseaseName}, then test what you've learned.</p>
+        <h1>{disease.name}</h1>
+        <p>Explore the key concepts behind {disease.name}, then test what you've learned.</p>
       </div>
 
       <div className="grid">
-        <Link to={"/concepts?disease=" + diseaseName} className="card card-teal">
+        <Link to={"/concepts?disease=" + disease.name} className="card card-teal">
           <h2>Explore Concepts</h2>
           <p className="text-secondary">Browse the topics and see how they connect</p>
         </Link>
 
-        <Link
-          to={"/" + systemName + "/" + topicName + "/" + diseaseName + "/question?disease=" + diseaseName}
-          className="card card-coral"
-        >
+        <Link to={"/disease/" + disease.id + "/question?disease=" + disease.name} className="card card-coral">
           <h2>Start Question</h2>
           <p className="text-secondary">Test your knowledge with a quick question</p>
         </Link>

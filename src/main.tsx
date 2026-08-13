@@ -26,13 +26,13 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/question" element={<Question />} />
         <Route path="/concepts" element={<Concepts />} />
         <Route path="/concepts/:name" element={<ConceptDetail />} />
-        <Route path="/:systemName" element={<SystemPage />} />
-        <Route path="/:systemName/:topicName" element={<TopicPage />} />
-        <Route path="/:systemName/:topicName/:diseaseName" element={<DiseasePage />} />
-        <Route path="/:systemName/:topicName/:diseaseName/question" element={<Question />} />
-        <Route path="/:systemName/question" element={<Question />} />
         <Route path="/lectures" element={<Lectures />} />
         <Route path="/lectures/:id" element={<LectureDetail />} />
+        <Route path="/topic/:topicId" element={<TopicPage />} />
+        <Route path="/disease/:diseaseId" element={<DiseasePage />} />
+        <Route path="/disease/:diseaseId/question" element={<Question />} />
+        <Route path="/:systemName/question" element={<Question />} />
+        <Route path="/:systemName" element={<SystemPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

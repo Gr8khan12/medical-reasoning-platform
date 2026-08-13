@@ -7,8 +7,7 @@ function ConceptDetail() {
   const [concept, setConcept] = useState<any>(null);
   const [children, setChildren] = useState<any[]>([]);
   const [lectures, setLectures] = useState<any[]>([]);
-  const [systemName, setSystemName] = useState<string | null>(null);
-  const [topicName, setTopicName] = useState<string | null>(null);
+  const [diseaseId, setDiseaseId] = useState<number | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
@@ -46,15 +45,12 @@ function ConceptDetail() {
         if (data.disease) {
           const { data: diseaseData } = await supabase
             .from("Diseases")
-            .select("system, topic")
+            .select("id")
             .eq("name", data.disease)
             .maybeSingle();
 
-          if (diseaseData?.system) {
-            setSystemName(diseaseData.system);
-          }
-          if (diseaseData?.topic) {
-            setTopicName(diseaseData.topic);
+          if (diseaseData?.id) {
+            setDiseaseId(diseaseData.id);
           }
         }
 
@@ -164,9 +160,9 @@ function ConceptDetail() {
             </>
           )}
 
-          {systemName && topicName && concept.disease && (
+          {diseaseId && (
             <Link
-              to={"/" + systemName + "/" + topicName + "/" + concept.disease + "/question?concept=" + concept.name}
+              to={"/disease/" + diseaseId + "/question?concept=" + concept.name}
               className="btn btn-coral"
               style={{ marginTop: "16px", display: "inline-block" }}
             >

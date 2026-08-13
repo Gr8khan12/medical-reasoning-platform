@@ -14,7 +14,8 @@ function SystemPage() {
         const { data, error } = await supabase
           .from("Topics")
           .select("*")
-          .eq("system", systemName);
+          .eq("system", systemName)
+          .is("parent_topic", null);
 
         if (error) {
           setErrorMsg(error.message);
@@ -50,7 +51,7 @@ function SystemPage() {
           {topics.map((t) => (
             <Link
               key={t.id}
-              to={"/" + systemName + "/" + t.name}
+              to={"/topic/" + t.id}
               className="card"
               style={{ textDecoration: "none" }}
             >
