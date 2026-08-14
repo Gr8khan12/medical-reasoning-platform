@@ -260,6 +260,40 @@ p { color: var(--color-text); }
 }
  
 .card-header-band h2 { color: #fff; margin: 0; }
+
+.card-dual-band {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  overflow: hidden;
+}
+
+.card-dual-band::before,
+.card-dual-band::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: var(--band-color, var(--color-primary));
+}
+
+.card-dual-band::before { left: 0; }
+.card-dual-band::after { right: 0; }
+
+.card-dual-band:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-dual-band h2 {
+  margin: 0;
+  text-align: center;
+}
  
 .card:hover {
   box-shadow: var(--shadow-md);

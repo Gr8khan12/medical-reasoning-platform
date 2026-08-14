@@ -13,6 +13,10 @@ function TopicPage() {
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
+      setBreadcrumb([]);
+      setChildTopics([]);
+      setDiseases([]);
       try {
         const { data: topicData, error } = await supabase
           .from("Topics")
@@ -28,7 +32,6 @@ function TopicPage() {
 
         setTopic(topicData);
 
-        // Walk up the parent chain to build a breadcrumb
         const crumbs: any[] = [];
         let current = topicData;
         while (current?.parent_topic) {
@@ -67,6 +70,9 @@ function TopicPage() {
   if (loading) return <p className="page">Loading...</p>;
   if (!topic) return <p className="page">Topic not found.</p>;
 
+  const depth = breadcrumb.length;
+  const useAltStyle = (depth + 1) % 2 === 1;
+
   return (
     <div className="page" style={topic.color ? { background: `var(--color-${topic.color}-light)` } : undefined}>
       <div className="hero">
@@ -81,13 +87,24 @@ function TopicPage() {
         <>
           <h2 style={{ margin: "24px 0 12px" }}>Subtopics</h2>
           <div className="grid">
-            {childTopics.map((t) => (
-              <Link key={t.id} to={"/topic/" + t.id} className="card" style={{ textDecoration: "none" }}>
-                <div className="card-header-band" style={{ background: t.color ? `var(--color-${t.color})` : "var(--color-primary)" }}>
+            {childTopics.map((t) =>
+              useAltStyle ? (
+                <Link
+                  key={t.id}
+                  to={"/topic/" + t.id}
+                  className="card-dual-band"
+                  style={{ textDecoration: "none", "--band-color": t.color ? `var(--color-${t.color})` : "var(--color-primary)" } as any}
+                >
                   <h2>{t.name}</h2>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ) : (
+                <Link key={t.id} to={"/topic/" + t.id} className="card" style={{ textDecoration: "none" }}>
+                  <div className="card-header-band" style={{ background: t.color ? `var(--color-${t.color})` : "var(--color-primary)" }}>
+                    <h2>{t.name}</h2>
+                  </div>
+                </Link>
+              )
+            )}
           </div>
         </>
       )}
@@ -96,19 +113,34 @@ function TopicPage() {
         <>
           <h2 style={{ margin: "24px 0 12px" }}>Diseases</h2>
           <div className="grid">
-            {diseases.map((d) => (
-              <Link key={d.id} to={"/disease/" + d.id} className="card" style={{ textDecoration: "none" }}>
-                <div className="card-header-band" style={{ background: d.color ? `var(--color-${d.color})` : "var(--color-primary)" }}>
+            {diseases.map((d) =>
+              useAltStyle ? (
+                <Link
+                  key={d.id}
+                  to={"/disease/" + d.id}
+                  className="card-dual-band"
+                  style={{ textDecoration: "none", "--band-color": d.color ? `var(--color-${d.color})` : "var(--color-primary)" } as any}
+                >
                   <h2>{d.name}</h2>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ) : (
+                <Link key={d.id} to={"/disease/" + d.id} className="card" style={{ textDecoration: "none" }}>
+                  <div className="card-header-band" style={{ background: d.color ? `var(--color-${d.color})` : "var(--color-primary)" }}>
+                    <h2>{d.name}</h2>
+                  </div>
+                </Link>
+              )
+            )}
           </div>
         </>
       )}
 
       {childTopics.length === 0 && diseases.length === 0 && (
-        <p className="text-secondary">Nothing added under {topic.name} yet.</p>
+        <div className="empty-state">
+          <div className="empty-state-icon">📭</div>
+          <p className="empty-state-title">Nothing here yet</p>
+          <p className="empty-state-text">No subtopics or diseases added under {topic.name} yet.</p>
+        </div>
       )}
     </div>
   );
