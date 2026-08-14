@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import { getAllDiseasesUnderTopic } from "../lib/topicTree";
 
 function Question() {
   const [searchParams] = useSearchParams();
@@ -29,17 +30,15 @@ function Question() {
             .eq("disease", disease);
           conceptNames = (conceptRows ?? []).map((c) => c.name);
         } else if (topic) {
-          const { data: diseaseRows } = await supabase
-            .from("Diseases")
-            .select("name")
-            .eq("topic", topic);
-          const diseaseNames = (diseaseRows ?? []).map((d) => d.name);
+            const topicSystem = searchParams.get("topicSystem") ?? "";
+            const diseaseRows = await getAllDiseasesUnderTopic(topic, topicSystem);
+            const diseaseNames = diseaseRows.map((d: any) => d.name);
 
-          const { data: conceptRows } = await supabase
-            .from("Concepts")
-            .select("name")
-            .in("disease", diseaseNames);
-          conceptNames = (conceptRows ?? []).map((c) => c.name);
+            const { data: conceptRows } = await supabase
+              .from("Concepts")
+              .select("name")
+              .in("disease", diseaseNames);
+            conceptNames = (conceptRows ?? []).map((c) => c.name);
         } else if (system) {
           const { data: diseaseRows } = await supabase
             .from("Diseases")

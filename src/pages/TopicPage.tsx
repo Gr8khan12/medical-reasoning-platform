@@ -142,6 +142,14 @@ function TopicPage() {
           <p className="empty-state-text">No subtopics or diseases added under {topic.name} yet.</p>
         </div>
       )}
+
+      <Link
+        to={"/" + topic.system + "/question?topic=" + topic.name + "&topicSystem=" + topic.system}
+        className={"btn " + (topic.color ? "btn-" + topic.color : "btn-primary")}
+        style={{ marginTop: "16px", display: "inline-block" }}
+      >
+        Test Yourself on All of {topic.name}
+      </Link>
     </div>
   );
 }
