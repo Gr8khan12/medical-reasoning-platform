@@ -15,6 +15,7 @@ function Question() {
   const [selected, setSelected] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [backUrl, setBackUrl] = useState("/concepts");
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -23,23 +24,49 @@ function Question() {
 
         if (concept) {
           conceptNames = [concept];
+
+          const { data: conceptRow } = await supabase
+            .from("Concepts")
+            .select("disease")
+            .eq("name", concept)
+            .maybeSingle();
+
+          if (conceptRow?.disease) {
+            setBackUrl("/concepts?disease=" + conceptRow.disease);
+          }
         } else if (disease) {
+          setBackUrl("/concepts?disease=" + disease);
+
           const { data: conceptRows } = await supabase
             .from("Concepts")
             .select("name")
             .eq("disease", disease);
           conceptNames = (conceptRows ?? []).map((c) => c.name);
         } else if (topic) {
-            const topicSystem = searchParams.get("topicSystem") ?? "";
-            const diseaseRows = await getAllDiseasesUnderTopic(topic, topicSystem);
-            const diseaseNames = diseaseRows.map((d: any) => d.name);
+          const topicSystem = searchParams.get("topicSystem") ?? "";
 
-            const { data: conceptRows } = await supabase
-              .from("Concepts")
-              .select("name")
-              .in("disease", diseaseNames);
-            conceptNames = (conceptRows ?? []).map((c) => c.name);
+          const { data: topicRow } = await supabase
+            .from("Topics")
+            .select("id")
+            .eq("name", topic)
+            .eq("system", topicSystem)
+            .maybeSingle();
+
+          if (topicRow?.id) {
+            setBackUrl("/topic/" + topicRow.id);
+          }
+
+          const diseaseRows = await getAllDiseasesUnderTopic(topic, topicSystem);
+          const diseaseNames = diseaseRows.map((d: any) => d.name);
+
+          const { data: conceptRows } = await supabase
+            .from("Concepts")
+            .select("name")
+            .in("disease", diseaseNames);
+          conceptNames = (conceptRows ?? []).map((c) => c.name);
         } else if (system) {
+          setBackUrl("/" + system);
+
           const { data: diseaseRows } = await supabase
             .from("Diseases")
             .select("name")
@@ -76,6 +103,9 @@ function Question() {
 
   if (errorMsg) return <p className="page">Error: {errorMsg}</p>;
   if (loading) return <p className="page">Loading questions...</p>;
+
+  const backLabel = concept || disease ? "Back to Concepts" : topic ? "Back to " + topic : system ? "Back to " + system : "Back to Concepts";
+
   if (questions.length === 0) {
     return (
       <div className="page">
@@ -83,7 +113,7 @@ function Question() {
           No questions found
           {concept ? " for " + concept : disease ? " for " + disease : topic ? " for " + topic : system ? " for " + system : ""}.
         </p>
-        <Link to="/concepts" className="btn btn-secondary">Back to Concepts</Link>
+        <Link to={backUrl} className="btn btn-secondary">{backLabel}</Link>
       </div>
     );
   }
@@ -206,7 +236,7 @@ function Question() {
         )}
       </div>
 
-      <Link to="/concepts" className="btn btn-secondary" style={{ marginTop: "16px" }}>Back to Concepts</Link>
+      <Link to={backUrl} className="btn btn-secondary" style={{ marginTop: "16px" }}>{backLabel}</Link>
     </div>
   );
 }

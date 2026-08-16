@@ -224,7 +224,7 @@ function ConceptDetail() {
             </div>
           )}
 
-          <Link to="/concepts" className="btn btn-secondary">← Back to all concepts</Link>
+          <Link to={"/concepts?disease=" + concept.disease} className="btn btn-secondary">← Back to all concepts</Link>
         </div>
       </div>
     </div>
