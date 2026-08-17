@@ -53,7 +53,7 @@ function TopicOverview() {
       </div>
 
       <div className="learn-layout">
-        <div className="learn-main">
+        <div className="learn-main" style={{ textAlign: "center" }}>
           {concepts.length === 0 ? (
             <div className="empty-state">
               <div className="empty-state-icon">📭</div>
