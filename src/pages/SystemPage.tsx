@@ -67,13 +67,14 @@ function SystemPage() {
       )}
 
       {topics.length > 0 && (
-        <Link
-          to={"/" + systemName + "/question?system=" + systemName}
-          className="btn btn-primary"
-          style={{ marginTop: "16px", display: "inline-block" }}
-        >
-          Test Yourself on All of {systemName}
-        </Link>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}>
+          <Link
+            to={"/" + systemName + "/question?system=" + systemName}
+            className="btn btn-primary"
+          >
+            Test Yourself on All of {systemName}
+          </Link>
+        </div>
       )}
     </div>
   );

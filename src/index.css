@@ -141,7 +141,6 @@ body {
   line-height: 1.55;
   font-size: var(--font-base);
   -webkit-font-smoothing: antialiased;
-  text-align: center;
 }
  
 h1 {
@@ -250,6 +249,7 @@ p { color: var(--color-text); }
   padding: var(--space-lg);
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
+  text-align: center;
 }
  
 .card-header-band {
@@ -257,6 +257,7 @@ p { color: var(--color-text); }
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   color: #fff;
+  text-align: center;
 }
  
 .card-header-band h2 { color: #fff; margin: 0; }
@@ -270,6 +271,7 @@ p { color: var(--color-text); }
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   overflow: hidden;
+  text-align: center;
 }
 
 .card-dual-band::before,
@@ -280,6 +282,7 @@ p { color: var(--color-text); }
   bottom: 0;
   width: 20px;
   background: var(--band-color, var(--color-primary));
+  text-align: center;
 }
 
 .card-dual-band::before { left: 0; }
@@ -341,6 +344,7 @@ p { color: var(--color-text); }
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   margin-bottom: var(--space-lg);
+  text-align: center;
 }
  
 .hero h1 { color: #ffffff; }

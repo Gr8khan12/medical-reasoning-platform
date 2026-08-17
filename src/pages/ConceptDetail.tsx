@@ -169,13 +169,14 @@ function ConceptDetail() {
             </>
           )}
 
-          <Link
-            to={"/question?concept=" + concept.name}
-            className="btn btn-coral"
-            style={{ marginTop: "16px", display: "inline-block" }}
-          >
-            Test yourself on this topic →
-          </Link>
+          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "16px" }}>
+            <Link
+              to={"/question?concept=" + concept.name}
+              className="btn btn-coral"
+            >
+              Test yourself on this topic →
+            </Link>
+          </div>
         </div>
 
         <div className="learn-sidebar">

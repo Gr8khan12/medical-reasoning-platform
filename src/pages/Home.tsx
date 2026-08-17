@@ -50,9 +50,11 @@ function Home() {
         </div>
       )}
 
-      <Link to="/question" className="btn btn-coral" style={{ marginTop: "16px", display: "inline-block" }}>
-        Test Yourself on Everything
-      </Link>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}>
+        <Link to="/question" className="btn btn-coral">
+          Test Yourself on Everything
+        </Link>
+      </div>
     </div>
   );
 }
