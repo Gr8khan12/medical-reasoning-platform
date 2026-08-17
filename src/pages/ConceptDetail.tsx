@@ -124,6 +124,12 @@ function ConceptDetail() {
 
       <div className="learn-layout">
         <div className="learn-main">
+          {concept.quick_summary && (
+            <div className="card card-teal" style={{ marginBottom: "24px" }}>
+              <p style={{ fontWeight: 600, marginBottom: "4px" }}>Quick Summary</p>
+              <p style={{ marginBottom: 0 }}>{concept.quick_summary}</p>
+            </div>
+          )}
           {concept.key_points && (
             <>
               <h2>Key Points</h2>

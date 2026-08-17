@@ -161,13 +161,21 @@ function TopicPage() {
         </div>
       )}
 
-      <Link
-        to={"/" + topic.system + "/question?topic=" + topic.name + "&topicSystem=" + topic.system}
-        className={"btn " + (topic.color ? "btn-" + topic.color : "btn-primary")}
-        style={{ marginTop: "16px", display: "inline-block" }}
-      >
-        Test Yourself on All of {topic.name}
-      </Link>
+      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "16px", justifyContent: "center" }}>
+        <Link
+          to={"/topic/" + topic.id + "/overview"}
+          className="btn btn-teal"
+        >
+          📖 Read Full Overview
+        </Link>
+
+        <Link
+          to={"/" + topic.system + "/question?topic=" + topic.name + "&topicSystem=" + topic.system}
+          className={"btn " + (topic.color ? "btn-" + topic.color : "btn-coral")}
+        >
+          ✏️ Test Yourself on All of {topic.name}
+        </Link>
+      </div>
     </div>
   );
 }
