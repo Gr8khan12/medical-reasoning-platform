@@ -28,7 +28,7 @@ function Home() {
   return (
     <div className="page">
       <div className="hero">
-        <h1>Medical Reasoning Platform</h1>
+        <h1>Examineline</h1>
         <p>Welcome to the home page.</p>
       </div>
 

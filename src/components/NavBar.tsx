@@ -9,7 +9,7 @@ function NavBar() {
 
   return (
     <div className="nav-bar">
-      <Link to="/" className="nav-brand">Medical Reasoning Platform</Link>
+      <Link to="/" className="nav-brand">Examineline</Link>
       <div className="nav-links">
         <Link to="/" className={isActive("/")}>Home</Link>
         <Link to="/search" className={isActive("/search")}>Search</Link>

@@ -15,6 +15,8 @@ import TopicPage from './pages/TopicPage.tsx'
 import Lectures from './pages/Lectures.tsx'
 import LectureDetail from './pages/LectureDetail.tsx'
 import TopicOverview from './pages/TopicOverview.tsx'
+import SignUp from './pages/SignUp.tsx'
+import Login from './pages/Login.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -35,6 +37,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/:systemName/question" element={<Question />} />
         <Route path="/:systemName" element={<SystemPage />} />
         <Route path="/topic/:topicId/overview" element={<TopicOverview />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
