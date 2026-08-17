@@ -8,6 +8,7 @@ function TopicPage() {
   const [breadcrumb, setBreadcrumb] = useState<any[]>([]);
   const [childTopics, setChildTopics] = useState<any[]>([]);
   const [diseases, setDiseases] = useState<any[]>([]);
+  const [directConcepts, setDirectConcepts] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,6 +18,7 @@ function TopicPage() {
       setBreadcrumb([]);
       setChildTopics([]);
       setDiseases([]);
+      setDirectConcepts([]);
       try {
         const { data: topicData, error } = await supabase
           .from("Topics")
@@ -50,13 +52,15 @@ function TopicPage() {
         }
         setBreadcrumb(crumbs);
 
-        const [childResult, diseaseResult] = await Promise.all([
+        const [childResult, diseaseResult, conceptResult] = await Promise.all([
           supabase.from("Topics").select("*").eq("parent_topic", topicData.name).eq("system", topicData.system),
           supabase.from("Diseases").select("*").eq("topic", topicData.name),
+          supabase.from("Concepts").select("*").eq("topic", topicData.name).eq("topic_system", topicData.system),
         ]);
 
         setChildTopics(childResult.data ?? []);
         setDiseases(diseaseResult.data ?? []);
+        setDirectConcepts(conceptResult.data ?? []);
       } catch (err: any) {
         setErrorMsg("Caught exception: " + err.message);
       } finally {
@@ -80,7 +84,7 @@ function TopicPage() {
           {topic.system}{breadcrumb.map((b) => " · " + b.name).join("")}
         </span>
         <h1>{topic.name}</h1>
-        <p>Choose a subtopic or disease to keep exploring.</p>
+        <p>Choose a subtopic, disease, or concept to keep exploring.</p>
       </div>
 
       {childTopics.length > 0 && (
@@ -135,11 +139,25 @@ function TopicPage() {
         </>
       )}
 
-      {childTopics.length === 0 && diseases.length === 0 && (
+      {directConcepts.length > 0 && (
+        <>
+          <h2 style={{ margin: "24px 0 12px" }}>Concepts</h2>
+          <div className="grid">
+            {directConcepts.map((c) => (
+              <Link key={c.id} to={"/concepts/" + c.name} className="card">
+                <h2>{c.name}</h2>
+                <p className="text-secondary">{c.description}</p>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
+
+      {childTopics.length === 0 && diseases.length === 0 && directConcepts.length === 0 && (
         <div className="empty-state">
           <div className="empty-state-icon">📭</div>
           <p className="empty-state-title">Nothing here yet</p>
-          <p className="empty-state-text">No subtopics or diseases added under {topic.name} yet.</p>
+          <p className="empty-state-text">No subtopics, diseases, or concepts added under {topic.name} yet.</p>
         </div>
       )}
 

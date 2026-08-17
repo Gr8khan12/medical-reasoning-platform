@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
-import { getAllDiseasesUnderTopic } from "../lib/topicTree";
+import { getAllConceptsUnderTopic } from "../lib/topicTree";
 
 function Question() {
   const [searchParams] = useSearchParams();
@@ -56,14 +56,7 @@ function Question() {
             setBackUrl("/topic/" + topicRow.id);
           }
 
-          const diseaseRows = await getAllDiseasesUnderTopic(topic, topicSystem);
-          const diseaseNames = diseaseRows.map((d: any) => d.name);
-
-          const { data: conceptRows } = await supabase
-            .from("Concepts")
-            .select("name")
-            .in("disease", diseaseNames);
-          conceptNames = (conceptRows ?? []).map((c) => c.name);
+          conceptNames = await getAllConceptsUnderTopic(topic, topicSystem);
         } else if (system) {
           setBackUrl("/" + system);
 
@@ -73,11 +66,28 @@ function Question() {
             .eq("system", system);
           const diseaseNames = (diseaseRows ?? []).map((d) => d.name);
 
-          const { data: conceptRows } = await supabase
-            .from("Concepts")
+          let viaDiseaseConcepts: string[] = [];
+          if (diseaseNames.length > 0) {
+            const { data: conceptRows } = await supabase
+              .from("Concepts")
+              .select("name")
+              .in("disease", diseaseNames);
+            viaDiseaseConcepts = (conceptRows ?? []).map((c) => c.name);
+          }
+
+          const { data: topLevelTopics } = await supabase
+            .from("Topics")
             .select("name")
-            .in("disease", diseaseNames);
-          conceptNames = (conceptRows ?? []).map((c) => c.name);
+            .eq("system", system)
+            .is("parent_topic", null);
+
+          let viaTopicConcepts: string[] = [];
+          for (const t of topLevelTopics ?? []) {
+            const nested = await getAllConceptsUnderTopic(t.name, system);
+            viaTopicConcepts = viaTopicConcepts.concat(nested);
+          }
+
+          conceptNames = [...new Set([...viaDiseaseConcepts, ...viaTopicConcepts])];
         }
 
         let query = supabase.from("Questions").select("*");

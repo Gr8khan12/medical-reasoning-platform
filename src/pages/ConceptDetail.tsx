@@ -7,7 +7,7 @@ function ConceptDetail() {
   const [concept, setConcept] = useState<any>(null);
   const [children, setChildren] = useState<any[]>([]);
   const [lectures, setLectures] = useState<any[]>([]);
-  const [diseaseId, setDiseaseId] = useState<number | null>(null);
+  const [backUrl, setBackUrl] = useState("/concepts");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
@@ -30,6 +30,21 @@ function ConceptDetail() {
 
         setConcept(data);
 
+        if (data.disease) {
+          setBackUrl("/concepts?disease=" + data.disease);
+        } else if (data.topic && data.topic_system) {
+          const { data: topicRow } = await supabase
+            .from("Topics")
+            .select("id")
+            .eq("name", data.topic)
+            .eq("system", data.topic_system)
+            .maybeSingle();
+
+          if (topicRow?.id) {
+            setBackUrl("/topic/" + topicRow.id);
+          }
+        }
+
         const { data: childData } = await supabase
           .from("Concepts")
           .select("*")
@@ -41,18 +56,6 @@ function ConceptDetail() {
           .select("*")
           .eq("concept", name);
         setLectures(lectureData ?? []);
-
-        if (data.disease) {
-          const { data: diseaseData } = await supabase
-            .from("Diseases")
-            .select("id")
-            .eq("name", data.disease)
-            .maybeSingle();
-
-          if (diseaseData?.id) {
-            setDiseaseId(diseaseData.id);
-          }
-        }
 
         const { data: progressData } = await supabase
           .from("Progress")
@@ -160,15 +163,13 @@ function ConceptDetail() {
             </>
           )}
 
-          {diseaseId && (
-            <Link
-              to={"/disease/" + diseaseId + "/question?concept=" + concept.name}
-              className="btn btn-coral"
-              style={{ marginTop: "16px", display: "inline-block" }}
-            >
-              Test yourself on this topic →
-            </Link>
-          )}
+          <Link
+            to={"/question?concept=" + concept.name}
+            className="btn btn-coral"
+            style={{ marginTop: "16px", display: "inline-block" }}
+          >
+            Test yourself on this topic →
+          </Link>
         </div>
 
         <div className="learn-sidebar">
@@ -224,7 +225,7 @@ function ConceptDetail() {
             </div>
           )}
 
-          <Link to={"/concepts?disease=" + concept.disease} className="btn btn-secondary">← Back to all concepts</Link>
+          <Link to={backUrl} className="btn btn-secondary">← Back</Link>
         </div>
       </div>
     </div>
