@@ -185,14 +185,20 @@ function Question() {
         {concept ? ": " + concept : disease ? ": " + disease : topic ? ": " + topic : system ? ": " + system : ": All Topics"}
       </h1>
 
-      <div className="card">
+      <div className="quiz-card">
         <p className="quiz-progress-label">
           Question {currentIndex + 1} of {questions.length}
         </p>
+        <div className="quiz-progress-track">
+          <div
+            className="quiz-progress-fill"
+            style={{ width: ((currentIndex + 1) / questions.length) * 100 + "%" }}
+          />
+        </div>
         <p className="quiz-question">{q.question}</p>
 
         <div className="answer-grid">
-          {options.map((opt: string) => (
+          {options.map((opt: string, i: number) => (
             <button
               key={opt}
               className={getOptionClass(opt)}
@@ -202,6 +208,7 @@ function Question() {
               }}
               disabled={selected !== null}
             >
+              <span className="answer-letter">{String.fromCharCode(65 + i)}</span>
               {opt}
             </button>
           ))}
