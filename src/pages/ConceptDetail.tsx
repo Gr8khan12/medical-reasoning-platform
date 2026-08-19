@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import { useAuth } from "../lib/AuthContext";
 
 function ConceptDetail() {
   const { name } = useParams();
@@ -12,6 +13,7 @@ function ConceptDetail() {
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
   const [bookmarked, setBookmarked] = useState(false);
+  const { session } = useAuth();
 
   useEffect(() => {
     async function fetchConcept() {
@@ -57,14 +59,17 @@ function ConceptDetail() {
           .eq("concept", name);
         setLectures(lectureData ?? []);
 
-        const { data: progressData } = await supabase
-          .from("Progress")
-          .select("bookmarked")
-          .eq("concept_name", name)
-          .maybeSingle();
+        if (session) {
+          const { data: progressData } = await supabase
+            .from("Progress")
+            .select("bookmarked")
+            .eq("concept_name", name)
+            .eq("user_id", session.user.id)
+            .maybeSingle();
 
-        if (progressData?.bookmarked) {
-          setBookmarked(true);
+          if (progressData?.bookmarked) {
+            setBookmarked(true);
+          }
         }
       } catch (err: any) {
         setErrorMsg("Caught exception: " + err.message);
@@ -73,12 +78,14 @@ function ConceptDetail() {
       }
     }
     fetchConcept();
-  }, [name]);
+  }, [name, session]);
 
   async function markProgress(status: string) {
+    if (!session) return;
+
     const { error } = await supabase
       .from("Progress")
-      .upsert({ concept_name: name, status: status }, { onConflict: "concept_name" });
+      .upsert({ concept_name: name, user_id: session.user.id, status: status }, { onConflict: "concept_name,user_id" });
 
     if (error) {
       setStatusMsg("Error saving progress: " + error.message);
@@ -88,12 +95,13 @@ function ConceptDetail() {
   }
 
   async function toggleBookmark() {
+    if (!session) return;
     const newValue = !bookmarked;
     setBookmarked(newValue);
 
     const { error } = await supabase.from("Progress").upsert(
-      { concept_name: name, bookmarked: newValue },
-      { onConflict: "concept_name" }
+      { concept_name: name, user_id: session.user.id, bookmarked: newValue },
+      { onConflict: "concept_name,user_id" }
     );
 
     if (error) {
@@ -181,15 +189,23 @@ function ConceptDetail() {
 
         <div className="learn-sidebar">
           <div className="card">
-            <h3>Progress</h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              <button className="btn btn-teal" onClick={() => markProgress("completed")}>Mark as Completed</button>
-              <button className="btn btn-amber" onClick={() => markProgress("needs_review")}>Mark as Needs Review</button>
-              <button className={bookmarked ? "btn btn-violet" : "btn btn-secondary"} onClick={toggleBookmark}>
-                {bookmarked ? "★ Bookmarked" : "☆ Bookmark"}
-              </button>
-            </div>
-            {statusMsg && <p className="text-secondary" style={{ marginTop: "8px" }}>{statusMsg}</p>}
+            <h3>Track your progress</h3>
+            {session ? (
+              <>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <button className="btn btn-teal" onClick={() => markProgress("completed")}>Mark as Completed</button>
+                  <button className="btn btn-amber" onClick={() => markProgress("needs_review")}>Mark as Needs Review</button>
+                  <button className={bookmarked ? "btn btn-violet" : "btn btn-secondary"} onClick={toggleBookmark}>
+                    {bookmarked ? "★ Bookmarked" : "☆ Bookmark"}
+                  </button>
+                </div>
+                {statusMsg && <p className="text-secondary" style={{ marginTop: "8px" }}>{statusMsg}</p>}
+              </>
+            ) : (
+              <p className="text-secondary">
+                <Link to="/login">Log in</Link> to track your progress and bookmarks.
+              </p>
+            )}
           </div>
 
           {tagList.length > 0 && (
