@@ -85,7 +85,7 @@ function ConceptDetail() {
 
     const { error } = await supabase
       .from("Progress")
-      .upsert({ concept_name: name, user_id: session.user.id, status: status }, { onConflict: "concept_name,user_id" });
+      .upsert({ concept_name: name, user_id: session.user.id, status: status }, { onConflict: "concept_name, user_id" });
 
     if (error) {
       setStatusMsg("Error saving progress: " + error.message);
@@ -101,7 +101,7 @@ function ConceptDetail() {
 
     const { error } = await supabase.from("Progress").upsert(
       { concept_name: name, user_id: session.user.id, bookmarked: newValue },
-      { onConflict: "concept_name,user_id" }
+      { onConflict: "concept_name, user_id" }
     );
 
     if (error) {
