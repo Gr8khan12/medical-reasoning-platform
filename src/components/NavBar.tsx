@@ -1,10 +1,19 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../lib/AuthContext";
+import { supabase } from "../lib/supabaseClient";
 
 function NavBar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { session } = useAuth();
 
   function isActive(path: string) {
     return location.pathname === path ? "nav-item active" : "nav-item";
+  }
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    navigate("/");
   }
 
   return (
@@ -15,6 +24,20 @@ function NavBar() {
         <Link to="/search" className={isActive("/search")}>Search</Link>
         <Link to="/bookmarks" className={isActive("/bookmarks")}>Bookmarks</Link>
         <Link to="/lectures" className={isActive("/lectures")}>Lectures</Link>
+
+        {session ? (
+          <>
+            <span className="nav-item text-secondary">{session.user.email}</span>
+            <button onClick={handleLogout} className="nav-item" style={{ background: "none", border: "none", cursor: "pointer" }}>
+              Log Out
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className={isActive("/login")}>Log In</Link>
+            <Link to="/signup" className={isActive("/signup")}>Sign Up</Link>
+          </>
+        )}
       </div>
     </div>
   );

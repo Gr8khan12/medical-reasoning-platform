@@ -17,9 +17,11 @@ import LectureDetail from './pages/LectureDetail.tsx'
 import TopicOverview from './pages/TopicOverview.tsx'
 import SignUp from './pages/SignUp.tsx'
 import Login from './pages/Login.tsx'
+import { AuthProvider } from './lib/AuthContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+<StrictMode>
+  <AuthProvider>
     <BrowserRouter>
       <NavBar />
       <Routes>
@@ -41,5 +43,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
+  </AuthProvider>
+</StrictMode>
 )
